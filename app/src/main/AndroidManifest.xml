@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ComplaintsMenu" />
-        <activity android:name=".AcceptComplaint"></activity>
+        <activity android:name=".AcceptComplaint" />
+        <activity android:name=".complaints"></activity>
     </application>
 
 </manifest>
