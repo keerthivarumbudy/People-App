@@ -17,7 +17,7 @@ public class ComplaintsMenu extends Activity{
         button1= (Button) findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener(){
     public void onClick(View v){
-        Intent intent1 = new Intent(ComplaintsMenu.this, AcceptComplaint.class);
+        Intent intent1 = new Intent(ComplaintsMenu.this, complaints.class);
 
 
         ComplaintsMenu.this.startActivity(intent1);

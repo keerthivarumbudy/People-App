@@ -21,7 +21,6 @@ public class Login extends AppCompatActivity {
                 public void onClick(View v){
                     Intent intent1 = new Intent(Login.this, ComplaintsMenu.class);
 
-
                     Login.this.startActivity(intent1);
     }
 });}
