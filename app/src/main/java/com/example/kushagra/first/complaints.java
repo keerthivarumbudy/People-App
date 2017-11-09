@@ -10,9 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -34,13 +32,30 @@ public class complaints extends AppCompatActivity {
         final EditText ComplaintLocation= (EditText)findViewById(R.id.complaintLocation);
         final EditText ComplaintDetails= (EditText)findViewById(R.id.complaintDetails);
         DatabaseComplaints=FirebaseDatabase.getInstance().getReference("Complaints");
+        final Toast toast=Toast.makeText(this,"Submitted",Toast.LENGTH_LONG);
+
         button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                Log.d("Onlick","Entered" );
+                String complaintType = ComplaintType.getText().toString();
+                Log.d("EDITTEXT",complaintType );
+                String complaint = Complaint.getText().toString();
+                Log.d("EDITTEXT",complaint );
+                String complaintLocation = ComplaintLocation.getText().toString();
+                String complaintDetails = ComplaintDetails.getText().toString();
+                String complaintID = DatabaseComplaints.push().getKey();
+                Log.d("complaintID",complaintID );
+                ComplaintInformation information= new ComplaintInformation(complaintID,complaintDetails,complaintLocation,complaint);
+                DatabaseComplaints.child(complaintID).setValue(information);
+                toast.show();
 
-                AddComplaints();
+            }
 
-            }});}
-        public void AddComplaints(){
+
+
+            });}}
+
+      /*  public void AddComplaints(){
         String complaintType = ComplaintType.getText().toString();
         String complaint = Complaint.getText().toString();
         String complaintLocation = ComplaintLocation.getText().toString();
@@ -93,3 +108,4 @@ public class complaints extends AppCompatActivity {
         return Complaint;
     }
 }
+*/

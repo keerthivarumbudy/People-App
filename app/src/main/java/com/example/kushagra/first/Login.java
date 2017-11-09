@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import static com.example.kushagra.first.R.id.hello;
 
 public class Login extends AppCompatActivity {
@@ -22,6 +25,8 @@ public class Login extends AppCompatActivity {
                     Intent intent1 = new Intent(Login.this, ComplaintsMenu.class);
 
                     Login.this.startActivity(intent1);
+
+
     }
 });}
 }
