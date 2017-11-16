@@ -21,7 +21,7 @@ public class ComplaintInformation {
         ComplaintID = complaintID;
         ComplaintDetails = complaintDetails;
         ComplaintLocation = complaintLocation;
-        Complaint = complaint;
+        Complaint = complaint ;
     }
 
 }
