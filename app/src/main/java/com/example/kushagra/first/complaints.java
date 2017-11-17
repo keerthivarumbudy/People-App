@@ -36,16 +36,12 @@ public class complaints extends AppCompatActivity {
 
         button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Log.d("Onlick","Entered" );
                 String complaintType = ComplaintType.getText().toString();
-                Log.d("EDITTEXT",complaintType );
                 String complaint = Complaint.getText().toString();
-                Log.d("EDITTEXT",complaint );
                 String complaintLocation = ComplaintLocation.getText().toString();
                 String complaintDetails = ComplaintDetails.getText().toString();
                 String complaintID = DatabaseComplaints.push().getKey();
-                Log.d("complaintID",complaintID );
-                ComplaintInformation information= new ComplaintInformation(complaintID,complaintDetails,complaintLocation,complaint);
+                ComplaintInformation information= new ComplaintInformation(complaintType,complaintDetails,complaintLocation,complaint);
                 DatabaseComplaints.child(complaintID).setValue(information);
                 toast.show();
 
