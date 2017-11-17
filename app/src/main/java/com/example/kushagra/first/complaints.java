@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 
@@ -15,20 +18,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class complaints extends AppCompatActivity {
-    public Button button;
-    public EditText Complaint;
-    public EditText ComplaintType;
-    public EditText ComplaintLocation;
-    public EditText ComplaintDetails;
-    private DatabaseReference DatabaseComplaints;
 
+    private DatabaseReference DatabaseComplaints;
+    ArrayAdapter<CharSequence>adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complaints);
         Button button=(Button) findViewById(R.id.SubmitButton);
         final EditText Complaint= (EditText)findViewById(R.id.complaint);
-        final EditText ComplaintType= (EditText)findViewById(R.id.complaintType);
+        final Spinner ComplaintType = (Spinner) findViewById(R.id.complaintType);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.complaintOptions, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ComplaintType.setAdapter(adapter);
+
         final EditText ComplaintLocation= (EditText)findViewById(R.id.complaintLocation);
         final EditText ComplaintDetails= (EditText)findViewById(R.id.complaintDetails);
         DatabaseComplaints=FirebaseDatabase.getInstance().getReference("Complaints");
@@ -36,7 +39,7 @@ public class complaints extends AppCompatActivity {
 
         button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                String complaintType = ComplaintType.getText().toString();
+                String complaintType = ComplaintType.getSelectedItem().toString();
                 String complaint = Complaint.getText().toString();
                 String complaintLocation = ComplaintLocation.getText().toString();
                 String complaintDetails = ComplaintDetails.getText().toString();
@@ -51,57 +54,16 @@ public class complaints extends AppCompatActivity {
 
             });}}
 
-      /*  public void AddComplaints(){
-        String complaintType = ComplaintType.getText().toString();
-        String complaint = Complaint.getText().toString();
-        String complaintLocation = ComplaintLocation.getText().toString();
-        String complaintDetails = ComplaintDetails.getText().toString();
-        if(!TextUtils.isEmpty(complaintLocation)){
-            String complaintID = DatabaseComplaints.push().getKey();
-            AccessingComplaints access = new AccessingComplaints(complaintID,complaintDetails,complaintLocation,complaint);
-            DatabaseComplaints.child(complaintID).setValue(access);
-            Toast.makeText(this,"Complaint Submitted",Toast.LENGTH_LONG).show();
+/*final Spinner ComplaintType= (Spinner)findViewById(R.id.complaintType);
+        adapter= ArrayAdapter.createFromResource(this,R.array.complaintOptions,android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                ComplaintType.setAdapter(adapter);
+                ComplaintType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+@Override
+public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
         }
-        else{
-            Toast.makeText(this,"Enter Complaint Location",Toast.LENGTH_LONG).show();
+public void onNothingSelected(AdapterView<?>parent){
+
         }
-
-    }
-    }
-
- class AccessingComplaints {
-    String ComplaintID;
-    String ComplaintDetails;
-    String ComplaintLocation;
-    String Complaint;
-    public AccessingComplaints(){
-
-    }
-
-
-
-
-    public AccessingComplaints(String complaintID, String complaintDetails, String complaintLocation, String complaint) {
-        ComplaintID = complaintID;
-        ComplaintDetails = complaintDetails;
-        ComplaintLocation = complaintLocation;
-        Complaint = complaint;
-    }
-
-    public String getComplaintID() {
-        return ComplaintID;
-    }
-
-    public String getComplaintDetails() {
-        return ComplaintDetails;
-    }
-
-    public String getComplaintLocation() {
-        return ComplaintLocation;
-    }
-
-    public String getComplaint() {
-        return Complaint;
-    }
-}
-*/
+        });*/

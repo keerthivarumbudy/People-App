@@ -1,3 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <resources>
     <string name="app_name">First</string>
+<string-array name="complaintOptions">
+    <item>Road</item>
+    <item>Water Supply</item>
+    <item>Electricity</item>
+    <item>Animal Control</item>
+    <item>Street Lights</item>
+    <item>Other</item>
+</string-array>
 </resources>
