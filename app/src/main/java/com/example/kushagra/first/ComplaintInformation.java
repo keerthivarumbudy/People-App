@@ -9,6 +9,8 @@ public class ComplaintInformation {
     public  String ComplaintDetails;
     public String ComplaintLocation;
     public  String Complaint;
+    public String ComplaintDate;
+    public String ComplaintTime;
 
     public ComplaintInformation(){
 
@@ -17,7 +19,9 @@ public class ComplaintInformation {
 
 
 
-    public ComplaintInformation(String complaintType, String complaintDetails, String complaintLocation, String complaint) {
+    public ComplaintInformation(String currentTime,String complaintDate,String complaintType, String complaintDetails, String complaintLocation, String complaint) {
+        ComplaintTime=currentTime;
+        ComplaintDate=complaintDate;
         ComplaintType = complaintType;
         ComplaintDetails = complaintDetails;
         ComplaintLocation = complaintLocation;
