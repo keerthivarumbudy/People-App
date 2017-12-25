@@ -21,7 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class complaints extends AppCompatActivity {
 
-    private DatabaseReference DatabaseComplaints;
+    private DatabaseReference DatabaseComplaints1;
+    private DatabaseReference DatabaseComplaints2;
+    private DatabaseReference DatabaseComplaints3;
     ArrayAdapter<CharSequence>adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +42,15 @@ public class complaints extends AppCompatActivity {
         final Date CurrentTime = Calendar.getInstance().getTime();
         final EditText ComplaintLocation= (EditText)findViewById(R.id.complaintLocation);
         final EditText ComplaintDetails= (EditText)findViewById(R.id.complaintDetails);
-        DatabaseComplaints=FirebaseDatabase.getInstance().getReference("Complaints");
-        final Toast toast=Toast.makeText(this,"Submitted",Toast.LENGTH_LONG);
+        final EditText ComplaintWard=(EditText)findViewById(R.id.editText);
+        DatabaseComplaints1=FirebaseDatabase.getInstance().getReference("Complaints_keerthi_ward1");
+        DatabaseComplaints2=FirebaseDatabase.getInstance().getReference("Complaints_kush_ward2");
+        DatabaseComplaints3=FirebaseDatabase.getInstance().getReference("Complaints_sarkar_ward3");
+        final Toast toast1=Toast.makeText(this,"Submitted to Keerthi",Toast.LENGTH_LONG);
+        final Toast toast2=Toast.makeText(this,"Submitted to Kushagra",Toast.LENGTH_LONG);
+        final Toast toast3=Toast.makeText(this,"Submitted to Saurov",Toast.LENGTH_LONG);
+        final Toast toast4=Toast.makeText(this,"Please enter ward 1,2 or 3",Toast.LENGTH_LONG);
+
 
         button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -49,11 +58,39 @@ public class complaints extends AppCompatActivity {
                 String complaint = Complaint.getText().toString();
                 String complaintLocation = ComplaintLocation.getText().toString();
                 String complaintDetails = ComplaintDetails.getText().toString();
-                String complaintID = DatabaseComplaints.push().getKey();
-                String complaintTime=new SimpleDateFormat("HH:mm").format(CurrentTime);
-                ComplaintInformation information= new ComplaintInformation(complaintTime,currentDate,complaintType,complaintDetails,complaintLocation,complaint);
-                DatabaseComplaints.child(complaintID).setValue(information);
-                toast.show();
+                String complaintWard= ComplaintWard.getText().toString();
+                int foo = Integer.parseInt(complaintWard);
+                if(foo==1)
+                {
+
+                    String complaintID1 = DatabaseComplaints1.push().getKey();
+                    String complaintTime=new SimpleDateFormat("HH:mm").format(CurrentTime);
+                    ComplaintInformation information= new ComplaintInformation(complaintTime,currentDate,complaintType,complaintDetails,complaintLocation,complaint);
+                    DatabaseComplaints1.child(complaintID1).setValue(information);
+                    toast1.show();
+                }
+                else if(foo==2)
+                {
+
+                    String complaintID2 = DatabaseComplaints2.push().getKey();
+                    String complaintTime=new SimpleDateFormat("HH:mm").format(CurrentTime);
+                    ComplaintInformation information= new ComplaintInformation(complaintTime,currentDate,complaintType,complaintDetails,complaintLocation,complaint);
+                    DatabaseComplaints2.child(complaintID2).setValue(information);
+                    toast2.show();
+                }
+                else if(foo==3)
+                {
+
+                    String complaintID3 = DatabaseComplaints3.push().getKey();
+                    String complaintTime=new SimpleDateFormat("HH:mm").format(CurrentTime);
+                    ComplaintInformation information= new ComplaintInformation(complaintTime,currentDate,complaintType,complaintDetails,complaintLocation,complaint);
+                    DatabaseComplaints3.child(complaintID3).setValue(information);
+                    toast3.show();
+                }
+                else
+                {
+                    toast4.show();
+                }
 
             }
 
