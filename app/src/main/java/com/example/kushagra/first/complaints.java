@@ -59,6 +59,11 @@ public class complaints extends AppCompatActivity {
                 String complaintLocation = ComplaintLocation.getText().toString();
                 String complaintDetails = ComplaintDetails.getText().toString();
                 String complaintWard= ComplaintWard.getText().toString();
+                if (complaintWard.isEmpty())
+                {
+                    toast4.show();
+                }
+                else{
                 int foo = Integer.parseInt(complaintWard);
                 if(foo==1)
                 {
@@ -92,7 +97,7 @@ public class complaints extends AppCompatActivity {
                     toast4.show();
                 }
 
-            }
+            }}
 
 
 
