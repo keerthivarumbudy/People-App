@@ -10,17 +10,20 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import static com.example.kushagra.first.R.id.hello;
 
 public class Login extends AppCompatActivity {
-    private TextView hello;
+    private Button LoginButton;
+    private Button New;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        LoginButton= (Button) findViewById(R.id.Login);
+        New= (Button) findViewById(R.id.newSignUp);
 
-            hello= (TextView) findViewById(R.id.hello);
-            hello.setOnClickListener(new View.OnClickListener(){
+
+            LoginButton.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v){
                     Intent intent1 = new Intent(Login.this, ComplaintsMenu.class);
 
@@ -28,5 +31,15 @@ public class Login extends AppCompatActivity {
 
 
     }
-});}
+});
+        New.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent1 = new Intent(Login.this, SignUp.class);
+
+                Login.this.startActivity(intent1);
+
+
+            }
+        });
+            }
 }
