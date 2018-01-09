@@ -20,23 +20,23 @@
         android:text="New? Sign up" />
 
     <EditText
-        android:id="@+id/UserName"
+        android:id="@+id/Email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/newSignUp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="105dp"
         android:ems="10"
-        android:hint="User Name"
+        android:hint="Email"
         android:inputType="text" />
 
     <EditText
         android:id="@+id/editText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/UserName"
-        android:layout_alignStart="@+id/UserName"
-        android:layout_below="@+id/UserName"
+        android:layout_alignLeft="@+id/Email"
+        android:layout_alignStart="@+id/Email"
+        android:layout_below="@+id/Email"
         android:layout_marginTop="35dp"
         android:ems="10"
         android:inputType="textPassword"
@@ -50,4 +50,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:text="Login" />
+    <ProgressBar
+        android:id="@+id/ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
 </RelativeLayout>
