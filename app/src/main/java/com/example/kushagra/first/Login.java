@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,8 +29,7 @@ public class Login extends AppCompatActivity {
     private EditText Email;
     private EditText Password;
     private ProgressBar ProgressBar;
-    String email;
-    String password;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,18 +38,20 @@ public class Login extends AppCompatActivity {
         LoginButton = (Button) findViewById(R.id.Login);
         New = (Button) findViewById(R.id.newSignUp);
         mAuth = FirebaseAuth.getInstance(); //Authentication getting instance
-        Email = (EditText) findViewById(R.id.Email);
-        Password = (EditText) findViewById(R.id.Password);
+        Email = (EditText) findViewById(R.id.loginEmail);
+        Password = (EditText) findViewById(R.id.loginPassword);
         ProgressBar = (ProgressBar) findViewById(R.id.ProgressBar);
         LoginButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Toast.makeText(getApplicationContext() ,"Enter Email",Toast.LENGTH_SHORT);
 
-              // login();
-                Intent intent1 = new Intent(Login.this, ComplaintsMenu.class);
 
-                Login.this.startActivity(intent1);
-            }
-        });
+               login();
+              /*Intent intent1 = new Intent(Login.this, ComplaintsMenu.class);
+
+                Login.this.startActivity(intent1);*/
+
+        }});
         New.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent1 = new Intent(Login.this, SignUp.class);
@@ -58,14 +60,28 @@ public class Login extends AppCompatActivity {
 
 
             }
-        });}
+        });
+    }
 
 
     private void login() {
-        email = Email.getText().toString().trim();
-        password = Password.getText().toString().trim();
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
+        String email = Email.getText().toString().trim();
+        String password = Password.getText().toString().trim();
+        if(email.isEmpty()){
+            Toast.makeText(getApplicationContext(),"Enter Email",Toast.LENGTH_SHORT);
+            return;
+
+        }
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            Toast.makeText(getApplicationContext(),"Enter valid email",Toast.LENGTH_SHORT);
+            return;
+        }
+        if(password.isEmpty()){
+            Toast.makeText(this,"Enter the password",Toast.LENGTH_SHORT);
+            return;
+        }
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -76,7 +92,7 @@ public class Login extends AppCompatActivity {
                             Login.this.startActivity(intent1);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(Login.this, "Login failed.",
+                            Toast.makeText(getApplicationContext(), task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -85,7 +101,6 @@ public class Login extends AppCompatActivity {
                     }
 
                 });
-
 
     }
 }
