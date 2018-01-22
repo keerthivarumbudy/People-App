@@ -40,7 +40,7 @@ public class Login extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance(); //Authentication getting instance
         Email = (EditText) findViewById(R.id.loginEmail);
         Password = (EditText) findViewById(R.id.loginPassword);
-        ProgressBar = (ProgressBar) findViewById(R.id.ProgressBar);
+        ProgressBar = (ProgressBar) findViewById(R.id.loginProgressBar);
         LoginButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext() ,"Enter Email",Toast.LENGTH_SHORT);
@@ -53,15 +53,15 @@ public class Login extends AppCompatActivity {
 
         }});
         New.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent1 = new Intent(Login.this, SignUp.class);
+        public void onClick(View v) {
+            Intent intent1 = new Intent(Login.this, SignUp.class);
 
-                Login.this.startActivity(intent1);
+            Login.this.startActivity(intent1);
 
 
-            }
-        });
-    }
+        }
+    });
+}
 
 
     private void login() {

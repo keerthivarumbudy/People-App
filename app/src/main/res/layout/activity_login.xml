@@ -28,7 +28,7 @@
         android:layout_marginTop="105dp"
         android:ems="10"
         android:hint="Email"
-        android:inputType="text" />
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/loginPassword"

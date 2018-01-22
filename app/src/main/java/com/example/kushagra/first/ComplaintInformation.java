@@ -12,9 +12,6 @@ public class ComplaintInformation {
     public String ComplaintDate;
     public String ComplaintTime;
 
-    public ComplaintInformation(){
-
-    }
 
 
 
