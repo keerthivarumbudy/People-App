@@ -1,9 +1,11 @@
 package com.example.kushagra.first;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -26,9 +28,11 @@ public class Login extends AppCompatActivity {
     private Button LoginButton;
     private Button New;
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
     private EditText Email;
     private EditText Password;
-    private ProgressBar ProgressBar;
+    private ProgressDialog pro;
+
 
 
     @Override
@@ -40,7 +44,8 @@ public class Login extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance(); //Authentication getting instance
         Email = (EditText) findViewById(R.id.loginEmail);
         Password = (EditText) findViewById(R.id.loginPassword);
-        ProgressBar = (ProgressBar) findViewById(R.id.loginProgressBar);
+        pro=new ProgressDialog(this);
+
         LoginButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext() ,"Enter Email",Toast.LENGTH_SHORT);
@@ -68,7 +73,7 @@ public class Login extends AppCompatActivity {
 
         String email = Email.getText().toString().trim();
         String password = Password.getText().toString().trim();
-        if(email.isEmpty()){
+        if(TextUtils.isEmpty(email)){
             Toast.makeText(getApplicationContext(),"Enter Email",Toast.LENGTH_SHORT);
             return;
 
@@ -81,19 +86,29 @@ public class Login extends AppCompatActivity {
             Toast.makeText(this,"Enter the password",Toast.LENGTH_SHORT);
             return;
         }
+        pro.setMessage("Logging In...");
+        pro.show();
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
                             // Sign in success, update UI with the signed-in user's information
 
                             Intent intent1 = new Intent(Login.this, ComplaintsMenu.class);
 
                             Login.this.startActivity(intent1);
+                            pro.dismiss();
+
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(getApplicationContext(), task.getException().getMessage(),
+
+
+                            Toast.makeText(getApplicationContext(), "Check Email and Password !!",
                                     Toast.LENGTH_SHORT).show();
+                            Email.setText("");
+                            Password.setText("");
+                            pro.dismiss();
                             return;
                         }
 
@@ -103,5 +118,21 @@ public class Login extends AppCompatActivity {
                 });
 
     }
+   @Override
+    protected void onStart()
+    {
+        super.onStart();
+        user=mAuth.getCurrentUser();
+        if (user!=null)
+        {
+            startActivity(new Intent(Login.this,ComplaintsMenu.class));
+        }
+
+    }
+
+
+
+
+
 }
 

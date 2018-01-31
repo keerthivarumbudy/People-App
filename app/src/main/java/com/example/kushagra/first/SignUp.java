@@ -2,6 +2,7 @@ package com.example.kushagra.first;
 
 import android.app.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class SignUp extends Activity {
     private EditText ConfirmPassword;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private ProgressDialog pro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class SignUp extends Activity {
         ConfirmPassword = (EditText) findViewById(R.id.ConfirmPassword);
         mAuth = FirebaseAuth.getInstance();
         mDatabase=FirebaseDatabase.getInstance().getReference("User Information");
+        pro=new ProgressDialog(this);
 
         Submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -98,6 +101,8 @@ public class SignUp extends Activity {
             }
             else {
                 //Create User with Email and Password
+                pro.setMessage("Signing Up...");
+                pro.show();
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -114,10 +119,12 @@ public class SignUp extends Activity {
                                     Intent intent1 = new Intent(SignUp.this, ComplaintsMenu.class);
 
                                     SignUp.this.startActivity(intent1);
+                                    pro.dismiss();
 
                                     Toast.makeText(SignUp.this, "Sign up successful.", Toast.LENGTH_LONG).show();
                                 }
                                     else {
+                                    pro.dismiss();
                                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                         Toast.makeText(SignUp.this, "You are already registered", Toast.LENGTH_SHORT).show();
                                     } else {
