@@ -74,16 +74,16 @@ public class Login extends AppCompatActivity {
         String email = Email.getText().toString().trim();
         String password = Password.getText().toString().trim();
         if(TextUtils.isEmpty(email)){
-            Toast.makeText(getApplicationContext(),"Enter Email",Toast.LENGTH_SHORT);
+            Toast.makeText(getApplicationContext(),"Enter Email",Toast.LENGTH_SHORT).show();
             return;
 
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            Toast.makeText(getApplicationContext(),"Enter valid email",Toast.LENGTH_SHORT);
+            Toast.makeText(getApplicationContext(),"Enter valid email",Toast.LENGTH_SHORT).show();
             return;
         }
         if(password.isEmpty()){
-            Toast.makeText(this,"Enter the password",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Enter the password",Toast.LENGTH_SHORT).show();
             return;
         }
         pro.setMessage("Logging In...");
