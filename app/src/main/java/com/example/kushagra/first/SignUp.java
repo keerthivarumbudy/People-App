@@ -2,6 +2,7 @@ package com.example.kushagra.first;
 
 import android.app.Activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,7 +18,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class SignUp extends Activity {
 
@@ -28,6 +32,7 @@ public class SignUp extends Activity {
     private EditText Password;
     private EditText ConfirmPassword;
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +45,11 @@ public class SignUp extends Activity {
         Password = (EditText) findViewById(R.id.Password);
         ConfirmPassword = (EditText) findViewById(R.id.ConfirmPassword);
         mAuth = FirebaseAuth.getInstance();
+        mDatabase=FirebaseDatabase.getInstance().getReference("User Information");
 
         Submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                HashMap<String,String> UserInfo= new HashMap<String, String>();
 
                 RegisterUser();
             }
@@ -50,9 +57,9 @@ public class SignUp extends Activity {
 
 
     private void RegisterUser() {
-        String userName = UserName.getText().toString().trim();
-        String email= Email.getText().toString().trim();
-        String phone= Phone.getText().toString().trim();
+        final String userName = UserName.getText().toString().trim();
+        final String email= Email.getText().toString().trim();
+        final String phone= Phone.getText().toString().trim();
         String password= Password.getText().toString().trim();
         String confirmPassword= ConfirmPassword.getText().toString().trim();
         if (TextUtils.isEmpty(userName)) {
@@ -100,7 +107,13 @@ public class SignUp extends Activity {
 
                                     FirebaseUser user = mAuth.getCurrentUser();
 
-                                    //GO TO COMPLAINT PAGE
+                                    String UserID = mDatabase.push().getKey();
+                                    UserInformation uInfo= new UserInformation(userName,email,phone);
+                                    mDatabase.child(UserID).setValue(uInfo);
+
+                                    Intent intent1 = new Intent(SignUp.this, ComplaintsMenu.class);
+
+                                    SignUp.this.startActivity(intent1);
 
                                     Toast.makeText(SignUp.this, "Sign up successful.", Toast.LENGTH_LONG).show();
                                 }
