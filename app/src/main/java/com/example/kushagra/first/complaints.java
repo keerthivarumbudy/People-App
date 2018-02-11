@@ -1,6 +1,8 @@
 package com.example.kushagra.first;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,6 +26,7 @@ public class complaints extends AppCompatActivity {
     private DatabaseReference DatabaseComplaints1;
     private DatabaseReference DatabaseComplaints2;
     private DatabaseReference DatabaseComplaints3;
+    public int count;
     ArrayAdapter<CharSequence>adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,14 @@ public class complaints extends AppCompatActivity {
                     ComplaintInformation information= new ComplaintInformation(complaintTime,currentDate,complaintType,complaintDetails,complaintLocation,complaint);
                     DatabaseComplaints1.child(complaintID1).setValue(information);
                     toast1.show();
+                    count++;
+                    AlertDialog.Builder builder= new AlertDialog.Builder(complaints.this);
+                    builder.setMessage("Complaint sent to Keerthi. Complaint id is "+ complaintID1.toString())
+                                    .setPositiveButton("Ok", null);
+
+                    AlertDialog alert= builder.create();
+                    alert.show();
+
                 }
                 else if(foo==2)
                 {
@@ -82,6 +93,7 @@ public class complaints extends AppCompatActivity {
                     ComplaintInformation information= new ComplaintInformation(complaintTime,currentDate,complaintType,complaintDetails,complaintLocation,complaint);
                     DatabaseComplaints2.child(complaintID2).setValue(information);
                     toast2.show();
+                    count++;
                 }
                 else if(foo==3)
                 {
@@ -91,6 +103,7 @@ public class complaints extends AppCompatActivity {
                     ComplaintInformation information= new ComplaintInformation(complaintTime,currentDate,complaintType,complaintDetails,complaintLocation,complaint);
                     DatabaseComplaints3.child(complaintID3).setValue(information);
                     toast3.show();
+                    count++;
                 }
                 else
                 {
