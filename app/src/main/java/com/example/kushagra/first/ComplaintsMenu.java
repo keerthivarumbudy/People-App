@@ -81,6 +81,14 @@ public class ComplaintsMenu extends AppCompatActivity{
 
             sendToStart();
         }
+        if (item.getItemId()==R.id.chpass){
+            Intent intent1 = new Intent(ComplaintsMenu.this, ChangePassword.class);
+
+            ComplaintsMenu.this.startActivity(intent1);
+
+
+        }
+
 
         return true;
     }
