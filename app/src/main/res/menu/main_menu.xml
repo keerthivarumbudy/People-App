@@ -6,7 +6,5 @@
         android:id="@+id/main_logout_button"
         android:title="Log Out"
         />
-    <item
-        android:id="@+id/chpass"
-        android:title="Change Password"/>
+
 </menu>
