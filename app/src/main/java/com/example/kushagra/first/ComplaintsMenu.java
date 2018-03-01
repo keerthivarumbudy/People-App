@@ -78,7 +78,6 @@ public class ComplaintsMenu extends AppCompatActivity{
         super.onOptionsItemSelected(item);
         if(item.getItemId()==R.id.main_logout_button){
             FirebaseAuth.getInstance().signOut();
-
             sendToStart();
         }
 
