@@ -32,6 +32,7 @@ public class Login extends AppCompatActivity {
     private EditText Email;
     private EditText Password;
     private ProgressDialog pro;
+    private TextView tv;
 
 
 
@@ -45,6 +46,8 @@ public class Login extends AppCompatActivity {
         Email = (EditText) findViewById(R.id.loginEmail);
         Password = (EditText) findViewById(R.id.loginPassword);
         pro=new ProgressDialog(this);
+        tv=(TextView)findViewById(R.id.textView3);
+
 
         LoginButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -66,6 +69,14 @@ public class Login extends AppCompatActivity {
 
         }
     });
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(Login.this,ForgotPassword.class);
+                startActivity(i);
+
+            }
+        });
 }
 
 
