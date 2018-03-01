@@ -78,7 +78,7 @@ public class complaints extends AppCompatActivity {
                     toast1.show();
                     count++;
                     AlertDialog.Builder builder= new AlertDialog.Builder(complaints.this);
-                    builder.setMessage("Complaint sent to Keerthi. Complaint id is "+ complaintID1.toString())
+                    builder.setMessage("Complaint sent  to Keerthi. Complaint id is "+ complaintID1.toString())
                                     .setPositiveButton("Ok", null);
 
                     AlertDialog alert= builder.create();

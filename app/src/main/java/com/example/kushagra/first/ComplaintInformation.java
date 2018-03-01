@@ -11,6 +11,7 @@ public class ComplaintInformation {
     public  String Complaint;
     public String ComplaintDate;
     public String ComplaintTime;
+    public String Accepted;
 
 
 
@@ -23,6 +24,8 @@ public class ComplaintInformation {
         ComplaintDetails = complaintDetails;
         ComplaintLocation = complaintLocation;
         Complaint = complaint ;
+        Accepted="No";
+
     }
 
 }
