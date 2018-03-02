@@ -18,9 +18,7 @@ public class ComplaintsMenu extends AppCompatActivity{
     private Button button1;
     private Toolbar mToolbar;
     private FirebaseAuth mAuth;
-
-
-
+    private Button button3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +26,18 @@ public class ComplaintsMenu extends AppCompatActivity{
         setContentView(R.layout.complaints_menu);
         button1= (Button) findViewById(R.id.button1);
         mAuth= FirebaseAuth.getInstance();
-
+        button3=(Button) findViewById(R.id.button3);
 
         button1.setOnClickListener(new View.OnClickListener(){
-    public void onClick(View v){
-        Intent intent1 = new Intent(ComplaintsMenu.this, complaints.class);
-
-
-        ComplaintsMenu.this.startActivity(intent1);
-
-
-
-    }});
+            public void onClick(View v){
+                Intent intent1 = new Intent(ComplaintsMenu.this, complaints.class);
+                ComplaintsMenu.this.startActivity(intent1);
+            }});
+        button3.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent2 = new Intent(ComplaintsMenu.this, ComplaintTracking.class);
+                ComplaintsMenu.this.startActivity(intent2);
+            }});
 
     mToolbar=(Toolbar)findViewById(R.id.main_page_toolbar);
     setSupportActionBar(mToolbar);
