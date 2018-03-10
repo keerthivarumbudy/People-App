@@ -69,18 +69,16 @@ public class ComplaintTracking extends AppCompatActivity {
                 Log.d("INSIDE SECOND ITERATION",ds2.getKey());
                 if(ds2.getKey().trim().equals(CId)){
                     Log.d("COMPARED ID ", ds2.getKey() + "  perfectly");
-                    ref = ds2.getRef().getRoot().toString();
                     for (DataSnapshot ds3 :ds2.getChildren()){
                        Log.d("CHILDREN",ds3.getKey());
                         if(ds3.getValue().equals("Yes")){
                             Log.d("ACCEPTED","YES");
-                            Log.d("ROOT",ref);
-
-                            popupWindow(CId,ref);
+                            ref=ds.getKey();
+                            popupWindow(CId,ds.getKey());
                                 break outerloop;
                             }
                         else{
-                            Toast toast=Toast.makeText(this,"Your complaint "+CId+" was submitted to "+ref+"\n It has been not yet been Accepted",Toast.LENGTH_LONG);
+                            Toast toast=Toast.makeText(this,"Your complaint "+CId+" was submitted to "+ds.getKey()+"\n It has been not yet been Accepted",Toast.LENGTH_LONG);
                             toast.show();
                             break outerloop;
                         }
