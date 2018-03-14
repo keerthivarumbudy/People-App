@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -27,6 +28,7 @@ public class ComplaintTracking extends AppCompatActivity {
     private String CId;
     private DatabaseReference database;
     private String acceptValue;
+    private ProgressBar trackingProgressBar;
 
 
     @Override
@@ -35,6 +37,8 @@ public class ComplaintTracking extends AppCompatActivity {
         setContentView(R.layout.activity_complaint_tracking);
         btracking = (Button) findViewById(R.id.btracking);
         Log.d("check1", "Button initialised");
+        trackingProgressBar= (ProgressBar) findViewById(R.id.trackingProgressBar);
+        trackingProgressBar.setVisibility(View.GONE);
         btracking.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("Check 2", "On click entered");
@@ -43,6 +47,7 @@ public class ComplaintTracking extends AppCompatActivity {
                 Log.d("THE COMPLAINT ID IS",CId);
                 database = FirebaseDatabase.getInstance().getReference();
                 Log.d("database working?", database.toString());
+                trackingProgressBar.setVisibility(View.VISIBLE);
                 database.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -74,10 +79,12 @@ public class ComplaintTracking extends AppCompatActivity {
                         if(ds3.getValue().equals("Yes")){
                             Log.d("ACCEPTED","YES");
                             ref=ds.getKey();
+                            trackingProgressBar.setVisibility(View.GONE);
                             popupWindow(CId,ds.getKey());
                                 break outerloop;
                             }
                         else{
+                            trackingProgressBar.setVisibility(View.GONE);
                             Toast toast=Toast.makeText(this,"Your complaint "+CId+" was submitted to "+ds.getKey()+"\n It has been not yet been Accepted",Toast.LENGTH_LONG);
                             toast.show();
                             break outerloop;
@@ -88,6 +95,7 @@ public class ComplaintTracking extends AppCompatActivity {
                 }
             }
             if(ref.equals("nothing")) {
+                trackingProgressBar.setVisibility(View.GONE);
                 Toast toast=Toast.makeText(this,"This complaint does not exist",Toast.LENGTH_LONG);
                 toast.show();
 
