@@ -82,7 +82,7 @@ public class Login extends AppCompatActivity {
 
     private void login() {
 
-        String email = Email.getText().toString().trim();
+        final String  email = Email.getText().toString().trim();
         String password = Password.getText().toString().trim();
         if(TextUtils.isEmpty(email)){
             Toast.makeText(getApplicationContext(),"Enter Email",Toast.LENGTH_SHORT).show();
@@ -107,6 +107,7 @@ public class Login extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
 
                             Intent intent1 = new Intent(Login.this, ComplaintsMenu.class);
+
 
                             Login.this.startActivity(intent1);
                             pro.dismiss();

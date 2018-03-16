@@ -16,4 +16,15 @@ public class UserInformation {
         Phone=phone;
     }
 
+    public String getEmailId() {
+        return EmailId;
+    }
+
+    public String getPhone() {
+        return Phone;
+    }
+
+    public String getUserName() {
+        return UserName;
+    }
 }
