@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class ComplaintsMenu extends AppCompatActivity{
     private Button button1;
-    private Button button5;
     private Toolbar mToolbar;
     private FirebaseAuth mAuth;
 
@@ -28,10 +27,7 @@ public class ComplaintsMenu extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.complaints_menu);
         button1= (Button) findViewById(R.id.button1);
-        button5= (Button) findViewById(R.id.button5);
         mAuth= FirebaseAuth.getInstance();
-        Intent i=getIntent();
-        final String email=i.getStringExtra("email");
 
 
         button1.setOnClickListener(new View.OnClickListener(){
@@ -45,18 +41,7 @@ public class ComplaintsMenu extends AppCompatActivity{
 
     }});
 
-        button5.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent1 = new Intent(ComplaintsMenu.this, update.class);
-
-                ComplaintsMenu.this.startActivity(intent1);
-
-
-
-            }});
-
-
-        mToolbar=(Toolbar)findViewById(R.id.main_page_toolbar);
+    mToolbar=(Toolbar)findViewById(R.id.main_page_toolbar);
     setSupportActionBar(mToolbar);
     getSupportActionBar().setTitle("First");
 
