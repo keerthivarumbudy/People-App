@@ -48,7 +48,7 @@ public class update extends AppCompatActivity {
         enter=(Button)findViewById(R.id.update);
         db= FirebaseDatabase.getInstance().getReference("User Information");
         user= FirebaseAuth.getInstance().getCurrentUser();
-        oldemail=user.getEmail().toString();
+        oldemail=user.getEmail();
         progressDialog=new ProgressDialog(this);
 
 
@@ -79,6 +79,7 @@ public class update extends AppCompatActivity {
 
     }
     public void up() {
+
         final String newemail = nemail.getText().toString().trim();
         String newname = name.getText().toString().trim();
         String phno = phn.getText().toString().trim();
@@ -136,7 +137,7 @@ public class update extends AppCompatActivity {
 
                                         }
                                     });*/
-                                        db.child(s1).updateChildren(details).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                       db.child(s1).updateChildren(details).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
