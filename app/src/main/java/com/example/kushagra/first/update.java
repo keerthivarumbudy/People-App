@@ -47,7 +47,6 @@ public class update extends AppCompatActivity {
         phn=(EditText)findViewById(R.id.number);
         enter=(Button)findViewById(R.id.update);
         db= FirebaseDatabase.getInstance().getReference("User Information");
-
         user= FirebaseAuth.getInstance().getCurrentUser();
         oldemail=user.getEmail().toString();
         progressDialog=new ProgressDialog(this);
@@ -60,8 +59,6 @@ public class update extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(update.this, changepass.class);
-
-
                 update.this.startActivity(intent1);
 
 
