@@ -74,23 +74,24 @@ public class ComplaintTracking extends AppCompatActivity {
                 Log.d("INSIDE SECOND ITERATION",ds2.getKey());
                 if(ds2.getKey().trim().equals(CId)){
                     Log.d("COMPARED ID ", ds2.getKey() + "  perfectly");
-                    for (DataSnapshot ds3 :ds2.getChildren()){
-                       Log.d("CHILDREN",ds3.getKey());
-                        if(ds3.getValue().equals("Yes")){
-                            Log.d("ACCEPTED","YES");
-                            ref=ds.getKey();
-                            trackingProgressBar.setVisibility(View.GONE);
-                            popupWindow(CId,ds.getKey());
+                    for (DataSnapshot ds3 :ds2.getChildren()) {
+                        Log.d("CHILDREN", ds3.getKey());
+                        if (ds3.getKey().equals("Accepted")) {
+                            if (ds3.getValue().equals("Yes")) {
+                                Log.d("ACCEPTED", "YES");
+                                ref = ds.getKey();
+                                trackingProgressBar.setVisibility(View.GONE);
+                                popupWindow(CId, ds.getKey());
+                                break outerloop;
+                            } else {
+                                trackingProgressBar.setVisibility(View.GONE);
+                                Toast toast = Toast.makeText(this, "Your complaint " + CId + " was submitted to " + ds.getKey() + "\n It has been not yet been Accepted", Toast.LENGTH_LONG);
+                                toast.show();
                                 break outerloop;
                             }
-                        else{
-                            trackingProgressBar.setVisibility(View.GONE);
-                            Toast toast=Toast.makeText(this,"Your complaint "+CId+" was submitted to "+ds.getKey()+"\n It has been not yet been Accepted",Toast.LENGTH_LONG);
-                            toast.show();
-                            break outerloop;
-                        }
 
                         }
+                    }
                     }
                 }
             }
