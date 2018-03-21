@@ -21,7 +21,8 @@
         <activity android:name=".SignUp" />
         <activity android:name=".ForgotPassword" />
         <activity android:name=".ComplaintTracking" />
-        <activity android:name=".ComplaintFeedback"></activity>
+        <activity android:name=".ComplaintFeedback" />
+        <activity android:name=".RatingPage"></activity>
     </application>
 
 </manifest>
