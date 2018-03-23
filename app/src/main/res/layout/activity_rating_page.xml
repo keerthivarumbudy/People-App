@@ -1,9 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.kushagra.first.RatingPage">
+    android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <RadioButton
+            android:id="@+id/ProblemSolvedradioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Problem Solved"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="95dp"/>
+
+        <RadioButton
+            android:id="@+id/NoResponseradioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Response"
+            android:layout_marginLeft="95dp"/>
+
+    </RadioGroup>
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Rate the quality of work" />
+
+    <EditText
+        android:id="@+id/NumOfDays"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ratingSubmissionButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
+        android:ems="10"
+        android:hint="enter here"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/ratingSubmissionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp"
+        android:text="Button" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ratingBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp"
+        android:text="Enter the number of days taken to complete the job" />
+
+</RelativeLayout>
