@@ -22,8 +22,9 @@
             android:id="@+id/NoResponseradioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No Response"
-            android:layout_marginLeft="95dp"/>
+            android:text="No Response/Not Solved"
+            android:layout_marginLeft="95dp"
+            />
 
     </RadioGroup>
 
@@ -60,7 +61,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="35dp"
-        android:text="Button" />
+        android:text="Submit" />
 
     <TextView
         android:id="@+id/textView5"
@@ -70,5 +71,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
         android:text="Enter the number of days taken to complete the job" />
+
+    <Button
+        android:id="@+id/RadioResponseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView4"
+        android:layout_alignLeft="@+id/ratingSubmissionButton"
+        android:layout_alignStart="@+id/ratingSubmissionButton"
+        android:layout_marginBottom="39dp"
+        android:text="Submit" />
 
 </RelativeLayout>
