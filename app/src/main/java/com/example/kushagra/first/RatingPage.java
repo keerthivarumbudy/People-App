@@ -127,7 +127,7 @@ public class RatingPage extends AppCompatActivity {
             score3 = (score+score4)/2;
         }
         mdatabaseRef.child(CId).child("Score").setValue(score3);
-        Toast toast=Toast.makeText(this,"Rating Submitted "+ score4,Toast.LENGTH_LONG);
+        Toast toast=Toast.makeText(this,"Rating Submitted "+ score,Toast.LENGTH_LONG);
         toast.show();
     }
 }
