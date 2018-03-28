@@ -99,7 +99,9 @@ public class RatingPage extends AppCompatActivity {
 
                 }
                 else if (NoResponse.isChecked()){
-
+                    mdatabaseRef.child(CId).child("Score").setValue(0);
+                    Toast toast=Toast.makeText(RatingPage.this,"Rating Submitted ",Toast.LENGTH_LONG);
+                    toast.show();
                 }
             }
         });
