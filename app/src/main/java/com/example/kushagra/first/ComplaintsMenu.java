@@ -18,44 +18,32 @@ public class ComplaintsMenu extends AppCompatActivity{
     private Button button1;
     private Toolbar mToolbar;
     private FirebaseAuth mAuth;
-    private Button button3;
-    private Button button5;
-    private Button button2;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.complaints_menu);
         button1= (Button) findViewById(R.id.button1);
-        button5= (Button) findViewById(R.id.button5);
         mAuth= FirebaseAuth.getInstance();
-        button3=(Button) findViewById(R.id.button3);
-        button2= (Button) findViewById(R.id.button2);
+
 
         button1.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent1 = new Intent(ComplaintsMenu.this, complaints.class);
-                ComplaintsMenu.this.startActivity(intent1);
-            }});
-        button2.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent2 = new Intent(ComplaintsMenu.this, ComplaintFeedback.class);
-                ComplaintsMenu.this.startActivity(intent2);}});
+    public void onClick(View v){
+        Intent intent1 = new Intent(ComplaintsMenu.this, complaints.class);
 
-        button3.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent2 = new Intent(ComplaintsMenu.this, ComplaintTracking.class);
-                ComplaintsMenu.this.startActivity(intent2);
-            }});
-        button5.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent2 = new Intent(ComplaintsMenu.this, update.class);
-                ComplaintsMenu.this.startActivity(intent2);
-            }});
+
+        ComplaintsMenu.this.startActivity(intent1);
+
+
+
+    }});
 
     mToolbar=(Toolbar)findViewById(R.id.main_page_toolbar);
     setSupportActionBar(mToolbar);
-    getSupportActionBar().setTitle("People");
+    getSupportActionBar().setTitle("First");
 
 
     }
@@ -63,6 +51,7 @@ public class ComplaintsMenu extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
+
         FirebaseUser currentUser= mAuth.getCurrentUser();
         if(currentUser==null){
             sendToStart();
