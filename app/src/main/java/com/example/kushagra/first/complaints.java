@@ -25,8 +25,11 @@ import java.util.Date;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class complaints extends AppCompatActivity {
 
@@ -39,6 +42,7 @@ public class complaints extends AppCompatActivity {
     private Double latt;
     private Float dis;
     private ProgressDialog pro;
+
     ArrayAdapter<CharSequence>adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,7 @@ public class complaints extends AppCompatActivity {
         final Toast toast5=Toast.makeText(this,"Please enter ward 1,2 or 3 Correctly!!",Toast.LENGTH_LONG);
         final Toast toast6=Toast.makeText(this,"NOT UNDER ANY AUTHORITY !",Toast.LENGTH_LONG);
         final Toast toast7=Toast.makeText(this,"Try Again !",Toast.LENGTH_LONG);
+        final Toast toast8=Toast.makeText(this,"Complaint Already Registered ",Toast.LENGTH_LONG);
         ActivityCompat.requestPermissions(complaints.this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},123);
         gp=new gpslocation(getApplicationContext());
         pro=new ProgressDialog(this);
@@ -76,7 +81,7 @@ public class complaints extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View v){
-                String complaintType = ComplaintType.getSelectedItem().toString();
+                final String complaintType = ComplaintType.getSelectedItem().toString();
                 String complaint = Complaint.getText().toString();
                 String complaintLocation = ComplaintLocation.getText().toString();
                 String complaintDetails = ComplaintDetails.getText().toString();
@@ -87,7 +92,7 @@ public class complaints extends AppCompatActivity {
                 }
                 else{
                    pro.setMessage("Submitting...");
-                    pro.show();
+                   pro.show();
 
                     int foo = Integer.parseInt(complaintWard);
 
@@ -104,7 +109,9 @@ public class complaints extends AppCompatActivity {
                         l1.setLongitude(longi);
                         l2.setLatitude(12.31183258);
                         l2.setLongitude(76.61282032);
-                         dis=l1.distanceTo(l2);
+                        dis=l1.distanceTo(l2);
+
+
 
 
                         if(dis<2000)
@@ -118,10 +125,12 @@ public class complaints extends AppCompatActivity {
                        }
                        else if (dis>2000)
                         {
-                            l2.setLatitude(12.311827);
-                            l2.setLongitude(76.652985);
-                            dis=l1.distanceTo(l2);
-                            if(dis<2000)
+                            Location l3=new Location("");
+                            l3.setLatitude(12.33268216);
+                            l3.setLongitude(76.630163511);
+                            float dis1=l1.distanceTo(l3);
+
+                            if(dis1<2000)
                             {
                                 if(foo!=2)
                                 {toast5.show();
@@ -129,29 +138,30 @@ public class complaints extends AppCompatActivity {
 
 
                             }
-                            else if(dis>2000)
+                            else if(dis1>2000)
+                                {Location l4=new Location("");
+                                l4.setLatitude(12.304202);
+                                l4.setLongitude(76.632607);
+                                float dis2=l1.distanceTo(l4);
+
+                                if(dis2<2000)
                                 {
-                                l2.setLatitude(12.304202);
-                                l2.setLongitude(76.632607);
-                                dis=l1.distanceTo(l2);
-                                if(dis<2000)
-                                {pro.dismiss();
+                                    pro.dismiss();
                                     if(foo!=3)
                                     {toast5.show();
                                         foo=4;}
 
 
                                 }
+                                else {
+                                    toast6.show();
+                                    foo=4;
+
+                                }
 
                             }
-                            else {
-                                toast6.show();
-                                foo=4;
 
-                                   }
-                            {
 
-                            }
                         }
 
 
@@ -160,36 +170,103 @@ public class complaints extends AppCompatActivity {
 
 
                     }
-                    else {toast7.show();
-                    foo=4;}
+                    else {
+                        toast7.show();
+                        foo=4;
+                        }
 
 
                 if(foo==1)
                 {
 
-                   final String complaintID1 = DatabaseComplaints1.push().getKey();
-                    String complaintTime=new SimpleDateFormat("HH:mm").format(CurrentTime);
-                    ComplaintInformation information= new ComplaintInformation(complaintTime,currentDate,complaintType,complaintDetails,complaintLocation,complaint);
-                    DatabaseComplaints1.child(complaintID1).setValue(information).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                             pro.dismiss();
-                            toast1.show();
-                            count++;
-                            AlertDialog.Builder builder= new AlertDialog.Builder(complaints.this);
-                            builder.setMessage("Complaint sent  to Keerthi. Complaint id is "+ complaintID1.toString())
-                                    .setPositiveButton("Ok", null);
 
-                            AlertDialog alert= builder.create();
-                            alert.show();
+                    DatabaseComplaints1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot i: dataSnapshot.getChildren())
+                            {
+                                String s=i.child("ComplaintType").getValue().toString();
+
+                                if(s.equals(complaintType))
+                                {
+                                    toast8.show();
+                                    pro.dismiss();
+                                    return;
+
+
+                                }
+
+                            }
+
+
+
+
+                        }
+
+                      @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
                         }
                     });
 
 
+
+                        /*final String complaintID1 = DatabaseComplaints1.push().getKey();
+                        String complaintTime = new SimpleDateFormat("HH:mm").format(CurrentTime);
+                        ComplaintInformation information = new ComplaintInformation(complaintTime, currentDate, complaintType, complaintDetails, complaintLocation, complaint);
+                        DatabaseComplaints1.child(complaintID1).setValue(information).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                pro.dismiss();
+                                toast1.show();
+                                count++;
+                                AlertDialog.Builder builder = new AlertDialog.Builder(complaints.this);
+                                builder.setMessage("Complaint sent  to Keerthi. Complaint id is " + complaintID1.toString())
+                                        .setPositiveButton("Ok", null);
+
+                                AlertDialog alert = builder.create();
+                                alert.show();
+
+                            }
+                        });*/
+
+
+
                 }
-                else if(foo==2)
+               else if(foo==2)
                 {
+                    DatabaseComplaints2.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot i: dataSnapshot.getChildren())
+                            {
+                                String s=i.child("ComplaintType").getValue().toString();
+                                if(s!=null)
+                                {
+                                    if(s.equals(complaintType))
+                                    {
+
+                                        toast8.show();
+                                        pro.dismiss();
+                                        return;
+
+
+
+                                    }
+                                }
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
+
 
                     String complaintID2 = DatabaseComplaints2.push().getKey();
                     String complaintTime=new SimpleDateFormat("HH:mm").format(CurrentTime);
@@ -207,6 +284,36 @@ public class complaints extends AppCompatActivity {
                 }
                 else if(foo==3)
                 {
+                    DatabaseComplaints3.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot i: dataSnapshot.getChildren())
+                            {
+                                String s=i.child("ComplaintType").getValue().toString();
+                                if(s!=null)
+                                {
+                                    if(s.equals(complaintType))
+                                    {
+
+                                        toast8.show();
+                                        pro.dismiss();
+                                        return;
+
+
+
+                                    }
+                                }
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
 
                     String complaintID3 = DatabaseComplaints3.push().getKey();
                     String complaintTime=new SimpleDateFormat("HH:mm").format(CurrentTime);
@@ -225,7 +332,7 @@ public class complaints extends AppCompatActivity {
                 else if (foo==4)
                 {
                     pro.dismiss();
-                    /* time pass*/
+
                 }
                 else
                 {
@@ -242,11 +349,10 @@ public class complaints extends AppCompatActivity {
     latt=0.0;
     longi=0.0;
     }
-
-
-
-
-
+    /*public  void print(Double la,Double lo,float di)
+    {
+        Toast.makeText(this,"latt "+Double.toString(la)+"\nlong "+Double.toString(lo)+"\nditance "+Float.toString(di),Toast.LENGTH_LONG).show();
+    }*/
 
 
 
