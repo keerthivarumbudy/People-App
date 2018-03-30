@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class ComplaintsMenu extends AppCompatActivity{
     private Button button1;
     private Button button2;
+    private Button button3;
     private Toolbar mToolbar;
     private FirebaseAuth mAuth;
     private Button up;
