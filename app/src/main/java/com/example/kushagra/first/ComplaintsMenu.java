@@ -45,7 +45,7 @@ public class ComplaintsMenu extends AppCompatActivity{
 
 
     }});
-        button2.setOnClickListener(new View.OnClickListener(){
+        /*button2.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent intent1 = new Intent(ComplaintsMenu.this,ComplaintFeedback.class);
 
@@ -54,7 +54,7 @@ public class ComplaintsMenu extends AppCompatActivity{
 
 
 
-            }});
+            }});*/
         up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
