@@ -42,6 +42,17 @@ public class complaints extends AppCompatActivity {
     private Double latt;
     private Float dis;
     private ProgressDialog pro;
+    private Toast toast2;
+    private Toast toast1;
+    private Toast toast3;
+    private String complaint;
+    private String complaintLocation;
+    private String complaintWard;
+    private String complaintDetails;
+    private String currentDate;
+    private Date CurrentTime;
+    private String complaintType;
+
 
     ArrayAdapter<CharSequence>adapter;
     @Override
@@ -57,17 +68,17 @@ public class complaints extends AppCompatActivity {
         ComplaintType.setAdapter(adapter);
         //calender stuff
         Date now = new Date();
-        final String currentDate = new SimpleDateFormat( "dd-MMM-yyyy").format(now);
-        final Date CurrentTime = Calendar.getInstance().getTime();
+       /* final String */currentDate = new SimpleDateFormat( "dd-MMM-yyyy").format(now);
+       /* final Date */CurrentTime = Calendar.getInstance().getTime();
         final EditText ComplaintLocation= (EditText)findViewById(R.id.complaintLocation);
         final EditText ComplaintDetails= (EditText)findViewById(R.id.complaintDetails);
         final EditText ComplaintWard=(EditText)findViewById(R.id.editText);
         DatabaseComplaints1=FirebaseDatabase.getInstance().getReference("Complaints_keerthi_ward1");
         DatabaseComplaints2=FirebaseDatabase.getInstance().getReference("Complaints_kush_ward2");
         DatabaseComplaints3=FirebaseDatabase.getInstance().getReference("Complaints_sarkar_ward3");
-        final Toast toast1=Toast.makeText(this,"Submitted to Keerthi",Toast.LENGTH_LONG);
-        final Toast toast2=Toast.makeText(this,"Submitted to Kushagra",Toast.LENGTH_LONG);
-        final Toast toast3=Toast.makeText(this,"Submitted to Saurov",Toast.LENGTH_LONG);
+       /* final Toast*/ toast1=Toast.makeText(this,"Submitted to Keerthi",Toast.LENGTH_LONG);
+         toast2=Toast.makeText(this,"Submitted to Kushagra",Toast.LENGTH_LONG);
+        /*final Toast*/ toast3=Toast.makeText(this,"Submitted to Saurov",Toast.LENGTH_LONG);
         final Toast toast4=Toast.makeText(this,"Please enter ward 1,2 or 3",Toast.LENGTH_LONG);
         final Toast toast5=Toast.makeText(this,"Please enter ward 1,2 or 3 Correctly!!",Toast.LENGTH_LONG);
         final Toast toast6=Toast.makeText(this,"NOT UNDER ANY AUTHORITY !",Toast.LENGTH_LONG);
@@ -81,11 +92,11 @@ public class complaints extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View v){
-                final String complaintType = ComplaintType.getSelectedItem().toString();
-                String complaint = Complaint.getText().toString();
-                String complaintLocation = ComplaintLocation.getText().toString();
-                String complaintDetails = ComplaintDetails.getText().toString();
-                String complaintWard= ComplaintWard.getText().toString();
+               /* final String */complaintType = ComplaintType.getSelectedItem().toString();
+               /* String */complaint = Complaint.getText().toString();
+               /* String*/ complaintLocation = ComplaintLocation.getText().toString();
+               /* String*/ complaintDetails = ComplaintDetails.getText().toString();
+                /*String*/ complaintWard= ComplaintWard.getText().toString();
                 if (complaintWard.isEmpty())
                 {
                     toast4.show();
@@ -195,6 +206,7 @@ public class complaints extends AppCompatActivity {
 
 
                                 }
+                                print1();
 
                             }
 
@@ -211,7 +223,7 @@ public class complaints extends AppCompatActivity {
 
 
 
-                        /*final String complaintID1 = DatabaseComplaints1.push().getKey();
+                      /*  final String complaintID1 = DatabaseComplaints1.push().getKey();
                         String complaintTime = new SimpleDateFormat("HH:mm").format(CurrentTime);
                         ComplaintInformation information = new ComplaintInformation(complaintTime, currentDate, complaintType, complaintDetails, complaintLocation, complaint);
                         DatabaseComplaints1.child(complaintID1).setValue(information).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -253,10 +265,13 @@ public class complaints extends AppCompatActivity {
 
 
                                     }
+                                    print2();
+
                                 }
                             }
 
                         }
+
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
@@ -268,7 +283,8 @@ public class complaints extends AppCompatActivity {
 
 
 
-                    String complaintID2 = DatabaseComplaints2.push().getKey();
+
+                  /* String complaintID2 = DatabaseComplaints2.push().getKey();
                     String complaintTime=new SimpleDateFormat("HH:mm").format(CurrentTime);
                     ComplaintInformation information= new ComplaintInformation(complaintTime,currentDate,complaintType,complaintDetails,complaintLocation,complaint);
                     DatabaseComplaints2.child(complaintID2).setValue(information).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -279,11 +295,12 @@ public class complaints extends AppCompatActivity {
                             count++;
 
                         }
-                    });
+                    });*/
 
                 }
                 else if(foo==3)
                 {
+
                     DatabaseComplaints3.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -297,11 +314,13 @@ public class complaints extends AppCompatActivity {
 
                                         toast8.show();
                                         pro.dismiss();
+
                                         return;
 
 
 
                                     }
+                                    print3();
                                 }
                             }
 
@@ -315,7 +334,7 @@ public class complaints extends AppCompatActivity {
 
 
 
-                    String complaintID3 = DatabaseComplaints3.push().getKey();
+                    /*String complaintID3 = DatabaseComplaints3.push().getKey();
                     String complaintTime=new SimpleDateFormat("HH:mm").format(CurrentTime);
                     ComplaintInformation information= new ComplaintInformation(complaintTime,currentDate,complaintType,complaintDetails,complaintLocation,complaint);
                     DatabaseComplaints3.child(complaintID3).setValue(information).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -326,7 +345,7 @@ public class complaints extends AppCompatActivity {
                             count++;
 
                         }
-                    });
+                    });*/
 
                 }
                 else if (foo==4)
@@ -349,10 +368,61 @@ public class complaints extends AppCompatActivity {
     latt=0.0;
     longi=0.0;
     }
-    /*public  void print(Double la,Double lo,float di)
+    public  void print2()
     {
-        Toast.makeText(this,"latt "+Double.toString(la)+"\nlong "+Double.toString(lo)+"\nditance "+Float.toString(di),Toast.LENGTH_LONG).show();
-    }*/
+        //Toast.makeText(this,"latt "+Integer.toString(f),Toast.LENGTH_LONG).show();
+        String complaintID2 = DatabaseComplaints2.push().getKey();
+        String complaintTime=new SimpleDateFormat("HH:mm").format(CurrentTime);
+        ComplaintInformation information= new ComplaintInformation(complaintTime,currentDate,complaintType,complaintDetails,complaintLocation,complaint);
+        DatabaseComplaints2.child(complaintID2).setValue(information).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                pro.dismiss();
+                toast2.show();
+                count++;
+
+            }
+        });
+
+    }
+    public void print1()
+    {
+
+        final String complaintID1 = DatabaseComplaints1.push().getKey();
+        String complaintTime = new SimpleDateFormat("HH:mm").format(CurrentTime);
+        ComplaintInformation information = new ComplaintInformation(complaintTime, currentDate, complaintType, complaintDetails, complaintLocation, complaint);
+        DatabaseComplaints1.child(complaintID1).setValue(information).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                pro.dismiss();
+                toast1.show();
+                count++;
+                AlertDialog.Builder builder = new AlertDialog.Builder(complaints.this);
+                builder.setMessage("Complaint sent  to Keerthi. Complaint id is " + complaintID1.toString())
+                        .setPositiveButton("Ok", null);
+
+                AlertDialog alert = builder.create();
+                alert.show();
+
+            }
+        });
+
+    }
+    public void print3()
+    {
+        String complaintID3 = DatabaseComplaints3.push().getKey();
+        String complaintTime=new SimpleDateFormat("HH:mm").format(CurrentTime);
+        ComplaintInformation information= new ComplaintInformation(complaintTime,currentDate,complaintType,complaintDetails,complaintLocation,complaint);
+        DatabaseComplaints3.child(complaintID3).setValue(information).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                toast3.show();
+                pro.dismiss();
+                count++;
+
+            }
+        });
+    }
 
 
 
