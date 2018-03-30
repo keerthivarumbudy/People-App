@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class ComplaintsMenu extends AppCompatActivity{
     private Button button1;
+    private Button button2;
+    private Button button3;
     private Toolbar mToolbar;
     private FirebaseAuth mAuth;
     private Button up;
@@ -28,6 +30,7 @@ public class ComplaintsMenu extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.complaints_menu);
         button1= (Button) findViewById(R.id.button1);
+        button2=(Button) findViewById(R.id.button2);
         up=(Button)findViewById(R.id.button5);
         mAuth= FirebaseAuth.getInstance();
 
@@ -42,6 +45,16 @@ public class ComplaintsMenu extends AppCompatActivity{
 
 
     }});
+        button2.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent1 = new Intent(ComplaintsMenu.this,ComplaintFeedback.class);
+
+
+                ComplaintsMenu.this.startActivity(intent1);
+
+
+
+            }});
         up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
