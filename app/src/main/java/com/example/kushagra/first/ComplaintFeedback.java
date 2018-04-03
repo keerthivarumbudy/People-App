@@ -103,10 +103,10 @@ public class ComplaintFeedback extends AppCompatActivity {
     }
 
     public void popupWindow(String CId, String ref){
-        Intent intent=new Intent(ComplaintFeedback.this,RatingPage.class);
-        intent.putExtra("CID",CId);
-        intent.putExtra("Politician",ref);
-        ComplaintFeedback.this.startActivity(intent);
+        Intent intent10=new Intent(ComplaintFeedback.this,RatingPage.class);
+        intent10.putExtra("CID",CId);
+        intent10.putExtra("Politician",ref);
+        ComplaintFeedback.this.startActivity(intent10);
 
     }
     public void EnterOrNot (String SubmissionDateString){

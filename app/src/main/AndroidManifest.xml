@@ -19,13 +19,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".ComplaintsMenu" />
+        <activity android:name=".ComplaintTracking" />
         <activity android:name=".complaints" />
-        <activity android:name=".AcceptComplaint" />
+        <activity android:name=".RatingPage"/>
         <activity android:name=".SignUp" />
         <activity android:name=".update" />
         <activity android:name=".changepass" />
         <activity android:name=".ForgotPassword" />
-        <activity android:name=".ComplaintFeedback"></activity>
+        <activity android:name=".ComplaintFeedback"/>
     </application>
 
 </manifest>

@@ -30,6 +30,7 @@ public class ComplaintsMenu extends AppCompatActivity{
         setContentView(R.layout.complaints_menu);
         button1= (Button) findViewById(R.id.button1);
         button2=(Button) findViewById(R.id.button2);
+        button3=(Button) findViewById(R.id.button3);
         up=(Button)findViewById(R.id.button5);
         mAuth= FirebaseAuth.getInstance();
 
@@ -44,16 +45,24 @@ public class ComplaintsMenu extends AppCompatActivity{
 
 
     }});
-        /*button2.setOnClickListener(new View.OnClickListener(){
+        button2.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Intent intent1 = new Intent(ComplaintsMenu.this,ComplaintFeedback.class);
+                Intent intent2 = new Intent(ComplaintsMenu.this,ComplaintFeedback.class);
 
 
-                ComplaintsMenu.this.startActivity(intent1);
+                ComplaintsMenu.this.startActivity(intent2);
 
 
 
-            }});*/
+            }});
+        button3.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent3 = new Intent(ComplaintsMenu.this,ComplaintTracking.class);
+                ComplaintsMenu.this.startActivity(intent3);
+
+
+
+            }});
         up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -18,6 +18,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class RatingPage extends AppCompatActivity {
     private RadioButton NoResponse;
     private RadioButton ProblemSolved;
@@ -36,6 +40,9 @@ public class RatingPage extends AppCompatActivity {
     private float score2;
     private float score3;
     private float score;
+    private String node;
+    private String currentDate;
+
 
 
 
@@ -70,7 +77,17 @@ public class RatingPage extends AppCompatActivity {
                     ProblemSolved.setVisibility(View.GONE);
                     NoResponse.setVisibility(View.GONE);
                     RadioResponseButton.setVisibility(View.GONE);
-                    mdatabaseRef= FirebaseDatabase.getInstance().getReference(Politician);
+                    java.util.Date now = new java.util.Date();
+                    currentDate = new SimpleDateFormat( "dd-MMM-yyyy").format(now);
+                    mdatabaseRef= FirebaseDatabase.getInstance().getReference("Rating");
+                    if (Politician.equals("Complaints_keerthi_ward1")) {
+                        node = "keerthi";
+                    } else if (Politician.equals("Complaints_kush_ward2")) {
+                        node = "kush";
+                        // mPoliticianChild=mRef.child(databaseNode);
+                    } else {
+                        node = "sarkar";
+                    }
                     mdatabaseRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot){
@@ -99,7 +116,8 @@ public class RatingPage extends AppCompatActivity {
 
                 }
                 else if (NoResponse.isChecked()){
-                    mdatabaseRef.child(CId).child("Score").setValue(0);
+                    mdatabaseRef.child(node).child("Score").setValue(0);
+                    mdatabaseRef.child(node).child("Date").setValue(currentDate);
                     Toast toast=Toast.makeText(RatingPage.this,"Rating Submitted ",Toast.LENGTH_LONG);
                     toast.show();
                 }
@@ -113,7 +131,7 @@ public class RatingPage extends AppCompatActivity {
                 final Float score4=score2;
                 takeRating(score4,CId,Politician,Rating,days);
 
-        }});
+            }});
 
 
     }
@@ -128,7 +146,9 @@ public class RatingPage extends AppCompatActivity {
         else{
             score3 = (score+score4)/2;
         }
-        mdatabaseRef.child(CId).child("Score").setValue(score3);
+
+        mdatabaseRef.child(node).child("Score").setValue(score3);
+        mdatabaseRef.child(node).child("Date").setValue(currentDate);
         Toast toast=Toast.makeText(this,"Rating Submitted "+ score,Toast.LENGTH_LONG);
         toast.show();
     }
