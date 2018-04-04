@@ -42,6 +42,8 @@ public class RatingPage extends AppCompatActivity {
     private float score;
     private String node;
     private String currentDate;
+    private String complaintType;
+    private String complaintID2;
 
 
 
@@ -80,6 +82,7 @@ public class RatingPage extends AppCompatActivity {
                     java.util.Date now = new java.util.Date();
                     currentDate = new SimpleDateFormat( "dd-MMM-yyyy").format(now);
                     mdatabaseRef= FirebaseDatabase.getInstance().getReference("Rating");
+                    complaintID2 = mdatabaseRef.push().getKey();
                     if (Politician.equals("Complaints_keerthi_ward1")) {
                         node = "keerthi";
                     } else if (Politician.equals("Complaints_kush_ward2")) {
@@ -88,10 +91,36 @@ public class RatingPage extends AppCompatActivity {
                     } else {
                         node = "sarkar";
                     }
-                    mdatabaseRef.addValueEventListener(new ValueEventListener() {
+                    mdatabaseRef2=FirebaseDatabase.getInstance().getReference(Politician).child(CId).getRef();
+                    mdatabaseRef2.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot){
                             outerloop:
+                            Log.d("WHAT IS HAPPENING","LOL");
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                Log.d("Check1: ", ds.getKey());
+                                    Log.d("Check2: ", ds.getKey());
+                                    Log.d("Check2: ", ds.getValue().toString());
+                                    if (ds.getKey().equals("ComplaintType")) {
+                                        complaintType = ds.getValue().toString();
+                                        Log.d("COmplainttype!!!!!!", complaintType);
+
+                                }
+                            }
+                        }
+
+
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    /*mdatabaseRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot){
+                            outerloop:
+                            Log.d("WHAT IS HAPPENING","LOL");
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                 Log.d("Check1: ",ds.getKey());
                                 if(ds.getKey().trim().equals(CId)){
@@ -101,7 +130,11 @@ public class RatingPage extends AppCompatActivity {
                                             Log.d("Check3: ",ds2.getValue().toString());
                                             final String stringscore=ds2.getValue().toString();
                                             score2=Float.parseFloat(stringscore);
-                                            break outerloop;
+
+                                        }
+                                        else if(ds2.getKey().equals("ComplaintType")){
+                                            complaintType=ds2.getValue().toString();
+                                            Log.d("COmplainttype!!!!!!",complaintType);
                                         }
                                     }
                                 }
@@ -112,12 +145,13 @@ public class RatingPage extends AppCompatActivity {
                         public void onCancelled(DatabaseError databaseError) {
 
                         }
-                    });
+                    });*/
 
                 }
                 else if (NoResponse.isChecked()){
-                    mdatabaseRef.child(node).child("Score").setValue(0);
-                    mdatabaseRef.child(node).child("Date").setValue(currentDate);
+                    mdatabaseRef.child(node).child(complaintID2).child("Score").setValue(0);
+                    mdatabaseRef.child(node).child(complaintID2).child("Date").setValue(currentDate);
+                    mdatabaseRef.child(node).child(complaintID2).child("ComplaintType").setValue(complaintType);
                     Toast toast=Toast.makeText(RatingPage.this,"Rating Submitted ",Toast.LENGTH_LONG);
                     toast.show();
                 }
@@ -129,13 +163,13 @@ public class RatingPage extends AppCompatActivity {
                 Rating=ratingBar.getRating();
                 days= Integer.parseInt(DaysEditText.getText().toString());
                 final Float score4=score2;
-                takeRating(score4,CId,Politician,Rating,days);
+                takeRating(score4,CId,Politician,Rating,days,complaintType);
 
             }});
 
 
     }
-    public void takeRating(Float score4,final String CId, String Politician, float Rating, int days){
+    public void takeRating(Float score4,final String CId, String Politician, float Rating, int days,String complaintType){
         final float deduction= 50/33;
         score= Rating*50/5 +(50-(days*deduction));
 
@@ -146,9 +180,9 @@ public class RatingPage extends AppCompatActivity {
         else{
             score3 = (score+score4)/2;
         }
-
-        mdatabaseRef.child(node).child("Score").setValue(score3);
-        mdatabaseRef.child(node).child("Date").setValue(currentDate);
+        mdatabaseRef.child(node).child(complaintID2).child("Score").setValue(score3);
+        mdatabaseRef.child(node).child(complaintID2).child("Date").setValue(currentDate);
+        mdatabaseRef.child(node).child(complaintID2).child("ComplaintType").setValue(complaintType);
         Toast toast=Toast.makeText(this,"Rating Submitted "+ score,Toast.LENGTH_LONG);
         toast.show();
     }
