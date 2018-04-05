@@ -19,6 +19,7 @@ public class ComplaintsMenu extends AppCompatActivity{
     private Button button2;
     private Button button3;
     private Button button4;
+    private Button button6;
     private Toolbar mToolbar;
     private FirebaseAuth mAuth;
     private Button up;
@@ -34,6 +35,7 @@ public class ComplaintsMenu extends AppCompatActivity{
         button3=(Button) findViewById(R.id.button3);
         button4=(Button) findViewById(R.id.button4);
         up=(Button)findViewById(R.id.button5);
+        button6=(Button) findViewById(R.id.button6);
         mAuth= FirebaseAuth.getInstance();
 
 
@@ -53,8 +55,6 @@ public class ComplaintsMenu extends AppCompatActivity{
 
 
                 ComplaintsMenu.this.startActivity(intent2);
-
-
 
             }});
         button3.setOnClickListener(new View.OnClickListener(){
@@ -79,7 +79,12 @@ public class ComplaintsMenu extends AppCompatActivity{
                 startActivity(k);
             }
         });*/
+        button6.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent2 = new Intent(ComplaintsMenu.this,Results.class);
+                ComplaintsMenu.this.startActivity(intent2);
 
+            }});
     mToolbar=(Toolbar)findViewById(R.id.main_page_toolbar);
     setSupportActionBar(mToolbar);
     getSupportActionBar().setTitle("First");
