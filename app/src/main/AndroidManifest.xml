@@ -22,12 +22,14 @@
         <activity android:name=".ComplaintsMenu" />
         <activity android:name=".ComplaintTracking" />
         <activity android:name=".complaints" />
-        <activity android:name=".RatingPage"/>
+        <activity android:name=".RatingPage" />
         <activity android:name=".SignUp" />
         <activity android:name=".update" />
         <activity android:name=".changepass" />
         <activity android:name=".ForgotPassword" />
-        <activity android:name=".ComplaintFeedback"/>
+        <activity android:name=".ComplaintFeedback" />
+        <activity android:name=".Results" />
+        <activity android:name=".Rank"></activity>
     </application>
 
 </manifest>
