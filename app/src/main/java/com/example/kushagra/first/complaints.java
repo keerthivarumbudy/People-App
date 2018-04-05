@@ -25,6 +25,8 @@ import java.util.Date;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +34,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class complaints extends AppCompatActivity {
+
+    databaseHelper myDb;
 
     private DatabaseReference DatabaseComplaints1;
     private DatabaseReference DatabaseComplaints2;
@@ -52,6 +56,9 @@ public class complaints extends AppCompatActivity {
     private String currentDate;
     private Date CurrentTime;
     private String complaintType;
+    private FirebaseAuth mAuth;
+
+
 
 
     ArrayAdapter<CharSequence>adapter;
@@ -59,6 +66,15 @@ public class complaints extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complaints);
+
+
+        myDb=new databaseHelper(this);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user= mAuth.getCurrentUser();
+        final String email=user.getEmail();
+
+
+
         Button button=(Button) findViewById(R.id.SubmitButton);
         final EditText Complaint= (EditText)findViewById(R.id.complaint);
         //Spinner stuff
@@ -92,11 +108,21 @@ public class complaints extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View v){
+
                /* final String */complaintType = ComplaintType.getSelectedItem().toString();
                /* String */complaint = Complaint.getText().toString();
                /* String*/ complaintLocation = ComplaintLocation.getText().toString();
                /* String*/ complaintDetails = ComplaintDetails.getText().toString();
                 /*String*/ complaintWard= ComplaintWard.getText().toString();
+                boolean isInserted = myDb.insertData(email,complaint);
+                if(isInserted = true){
+                    Toast.makeText(complaints.this,"data inserted",Toast.LENGTH_LONG);
+                }
+                else{
+                    Toast.makeText(complaints.this,"data not inserted",Toast.LENGTH_LONG);
+                }
+
+
                 if (complaintWard.isEmpty())
                 {
                     toast4.show();

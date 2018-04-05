@@ -112,10 +112,17 @@ public class SignUp extends Activity {
 
                                     FirebaseUser user = mAuth.getCurrentUser();
 
+
+
+
+
+
                                     String UserID = mDatabase.push().getKey();
 
                                     UserInformation uInfo= new UserInformation(userName,email,phone);
                                     mDatabase.child(UserID).setValue(uInfo);
+
+
 
                                     Intent intent1 = new Intent(SignUp.this, ComplaintsMenu.class);
 
