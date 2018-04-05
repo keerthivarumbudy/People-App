@@ -84,8 +84,8 @@ public class complaints extends AppCompatActivity {
         ComplaintType.setAdapter(adapter);
         //calender stuff
         Date now = new Date();
-       /* final String */currentDate = new SimpleDateFormat( "dd-MMM-yyyy").format(now);
-       /* final Date */CurrentTime = Calendar.getInstance().getTime();
+        /* final String */currentDate = new SimpleDateFormat( "dd-MMM-yyyy").format(now);
+        /* final Date */CurrentTime = Calendar.getInstance().getTime();
         final EditText ComplaintLocation= (EditText)findViewById(R.id.complaintLocation);
         final EditText ComplaintDetails= (EditText)findViewById(R.id.complaintDetails);
         final EditText ComplaintWard=(EditText)findViewById(R.id.editText);
@@ -426,7 +426,6 @@ public class complaints extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(complaints.this);
                 builder.setMessage("Complaint sent  to Keerthi. Complaint id is " + complaintID1.toString())
                         .setPositiveButton("Ok", null);
-
                 AlertDialog alert = builder.create();
                 alert.show();
 

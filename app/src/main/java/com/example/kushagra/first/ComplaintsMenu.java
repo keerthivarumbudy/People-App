@@ -72,13 +72,13 @@ public class ComplaintsMenu extends AppCompatActivity{
                 startActivity(intent);
             }
         });
-        button4.setOnClickListener(new View.OnClickListener() {
+       /* button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent k =new Intent(ComplaintsMenu.this,Complaint_History.class);
                 startActivity(k);
             }
-        });
+        });*/
 
     mToolbar=(Toolbar)findViewById(R.id.main_page_toolbar);
     setSupportActionBar(mToolbar);
