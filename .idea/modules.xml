@@ -4,8 +4,10 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Second.iml" filepath="$PROJECT_DIR$/Second.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/people3.iml" filepath="$PROJECT_DIR$/people3.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../SAUROV SARKAR/AndroidStudioProjects/Second/.idea/people3.iml" filepath="$PROJECT_DIR$/../../../SAUROV SARKAR/AndroidStudioProjects/Second/.idea/people3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/people7.iml" filepath="$PROJECT_DIR$/.idea/people7.iml" />
     </modules>
   </component>
 </project>

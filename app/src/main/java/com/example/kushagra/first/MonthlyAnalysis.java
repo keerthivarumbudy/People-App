@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,12 +25,13 @@ import java.util.HashMap;
 
 public class MonthlyAnalysis extends AppCompatActivity {
     LineChart lineChart;
-
+    private ArrayList<ILineDataSet> dataSets = new ArrayList<>();
     private ArrayList<String> xVals = new ArrayList<String>();
     private DatabaseReference mDatabaseRef1;
     private DatabaseReference mDatabaseRef2;
     private DatabaseReference mDatabaseRef3;
     private java.util.Date date;
+
 
     int[] count={0,0,0,0,0,0,0,0,0,0,0,0};
     double[] arr={0,0,0,0,0,0,0,0,0,0,0,0};
@@ -67,106 +69,292 @@ public class MonthlyAnalysis extends AppCompatActivity {
         xVals.add("Nov");
         xVals.add("Dec");*/
 
-
         lineChart = (LineChart) findViewById(R.id.linechart);
         mDatabaseRef1 = FirebaseDatabase.getInstance().getReference("Rating");
-        mDatabaseRef2 = FirebaseDatabase.getInstance().getReference("Rating").child("kush");
-        mDatabaseRef3 = FirebaseDatabase.getInstance().getReference("Rating").child("sarkar");
         mDatabaseRef1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-                String colour="GREEN";
+
+
                 for (DataSnapshot ds1 : dataSnapshot.getChildren()) {
+                    if (ds1.getKey().equals("keerthi")) {
+                        for (DataSnapshot ds2 : ds1.getChildren()) {
+                            String y = "";
+                            Float z;
 
-                    for (DataSnapshot ds2 : ds1.getChildren()) {
-                        String y = "";
-                        Float z;
-                        if(ds2.getKey().equals("Colour")){
-                            colour=ds2.getValue().toString();
-                        }
-                        for (DataSnapshot ds : ds2.getChildren()) {
+                            for (DataSnapshot ds : ds2.getChildren()) {
 
-                            if (ds.getKey().equals("Date")) {
-                                y = month(ds.getValue().toString());
+                                if (ds.getKey().equals("Date")) {
+                                    y = month(ds.getValue().toString());
 
 
-                            } else if (ds.getKey().equals("Score")) {
-                                z = Float.parseFloat(ds.getValue().toString());
+                                } else if (ds.getKey().equals("Score")) {
+                                    z = Float.parseFloat(ds.getValue().toString());
 
-                                switch (y) {
-                                    case "Jan":
-                                        count[0] += 1;
-                                        arr[0] += z;
-                                        break;
-                                    case "Feb":
-                                        count[1] += 1;
-                                        arr[1] += z;
-                                        break;
-                                    case "Mar":
-                                        count[2] += 1;
-                                        arr[2] += z;
-                                        break;
-                                    case "Apr":
-                                        count[3] += 1;
-                                        arr[3] = arr[3] + z;
-                                        break;
-                                    case "May":
-                                        count[4] += 1;
-                                        arr[4] += z;
-                                        break;
-                                    case "Jun":
-                                        count[5] += 1;
-                                        arr[5] += z;
-                                        break;
-                                    case "Jul":
-                                        count[6] += 1;
-                                        arr[6] += z;
-                                        break;
-                                    case "Aug":
-                                        count[7] += 1;
-                                        arr[7] += z;
-                                        break;
-                                    case "Sep":
-                                        count[8] += 1;
-                                        arr[8] += z;
-                                        break;
-                                    case "Oct":
-                                        count[9] += 1;
-                                        arr[9] += z;
-                                        break;
-                                    case "Nov":
-                                        count[10] += 1;
-                                        arr[10] += z;
-                                        break;
-                                    case "Dec":
-                                        count[11] += 1;
-                                        arr[11] += z;
-                                        break;
-                                    default:
-                                        Log.d("fail", "fail");
+                                    switch (y) {
+                                        case "Jan":
+                                            count[0] += 1;
+                                            arr[0] += z;
+                                            break;
+                                        case "Feb":
+                                            count[1] += 1;
+                                            arr[1] += z;
+                                            break;
+                                        case "Mar":
+                                            count[2] += 1;
+                                            arr[2] += z;
+                                            break;
+                                        case "Apr":
+                                            count[3] += 1;
+                                            arr[3] = arr[3] + z;
+                                            break;
+                                        case "May":
+                                            count[4] += 1;
+                                            arr[4] += z;
+                                            break;
+                                        case "Jun":
+                                            count[5] += 1;
+                                            arr[5] += z;
+                                            break;
+                                        case "Jul":
+                                            count[6] += 1;
+                                            arr[6] += z;
+                                            break;
+                                        case "Aug":
+                                            count[7] += 1;
+                                            arr[7] += z;
+                                            break;
+                                        case "Sep":
+                                            count[8] += 1;
+                                            arr[8] += z;
+                                            break;
+                                        case "Oct":
+                                            count[9] += 1;
+                                            arr[9] += z;
+                                            break;
+                                        case "Nov":
+                                            count[10] += 1;
+                                            arr[10] += z;
+                                            break;
+                                        case "Dec":
+                                            count[11] += 1;
+                                            arr[11] += z;
+                                            break;
+                                        default:
+                                            Log.d("fail", "fail");
+                                    }
+
                                 }
 
                             }
 
+
                         }
+                        ArrayList<Entry> entries1 = new ArrayList<>();
+                        for (int i = 0; i < 12; i++) {
+                            float e;
+                            if(count[i]==0){
+                                e=0;
+                            }
+                            else{
+                                e=(float) (arr[i] / count[i]);
+                            }
+
+                            entries1.add(new Entry(i + 1,e ));
+                            Log.d("Checking array", entries1.get(i).toString());
+                        }
+                        LineDataSet set1 = new LineDataSet(entries1, ds1.getKey());
+                        set1.setColor(Color.RED);
+                        set1.setLineWidth(1f);
+                        set1.setVisible(true);
+                        dataSets.add(set1);
+                    }
+
+                    if (ds1.getKey().equals("kush")) {
+                        for (DataSnapshot ds2 : ds1.getChildren()) {
+                            String y = "";
+                            Float z;
+                            for (DataSnapshot ds : ds2.getChildren()) {
+
+                                if (ds.getKey().equals("Date")) {
+                                    y = month(ds.getValue().toString());
 
 
+                                } else if (ds.getKey().equals("Score")) {
+                                    z = Float.parseFloat(ds.getValue().toString());
+
+                                    switch (y) {
+                                        case "Jan":
+                                            count[0] += 1;
+                                            arr[0] += z;
+                                            break;
+                                        case "Feb":
+                                            count[1] += 1;
+                                            arr[1] += z;
+                                            break;
+                                        case "Mar":
+                                            count[2] += 1;
+                                            arr[2] += z;
+                                            break;
+                                        case "Apr":
+                                            count[3] += 1;
+                                            arr[3] = arr[3] + z;
+                                            break;
+                                        case "May":
+                                            count[4] += 1;
+                                            arr[4] += z;
+                                            break;
+                                        case "Jun":
+                                            count[5] += 1;
+                                            arr[5] += z;
+                                            break;
+                                        case "Jul":
+                                            count[6] += 1;
+                                            arr[6] += z;
+                                            break;
+                                        case "Aug":
+                                            count[7] += 1;
+                                            arr[7] += z;
+                                            break;
+                                        case "Sep":
+                                            count[8] += 1;
+                                            arr[8] += z;
+                                            break;
+                                        case "Oct":
+                                            count[9] += 1;
+                                            arr[9] += z;
+                                            break;
+                                        case "Nov":
+                                            count[10] += 1;
+                                            arr[10] += z;
+                                            break;
+                                        case "Dec":
+                                            count[11] += 1;
+                                            arr[11] += z;
+                                            break;
+                                        default:
+                                            Log.d("fail", "fail");
+                                    }
+
+                                }
+
+                            }
+
+
+                        }
+                        ArrayList<Entry> entries1 = new ArrayList<>();
+                        for (int i = 0; i < 12; i++) {
+                            float e;
+                            if(count[i]==0){
+                                e=0;
+                            }
+                            else{
+                                e=(float) (arr[i] / count[i]);
+                            }
+
+                            entries1.add(new Entry(i + 1,e ));
+                            Log.d("Checking array", entries1.get(i).toString());
+                        }
+                        LineDataSet set1 = new LineDataSet(entries1, ds1.getKey());
+                        set1.setColor(Color.GREEN);
+                        set1.setLineWidth(1f);
+                        dataSets.add(set1);
                     }
-                    ArrayList<Entry> entries1 = new ArrayList<>();
-                    for (int i = 0; i < 12; i++) {
-                        entries1.add(new Entry(i + 1, (float) (arr[i] / count[i])));
-                        Log.d("Checking array", entries1.get(i).toString());
+                    if (ds1.getKey().equals("sarkar")) {
+                        for (DataSnapshot ds2 : ds1.getChildren()) {
+                            String y = "";
+                            Float z;
+                            for (DataSnapshot ds : ds2.getChildren()) {
+
+                                if (ds.getKey().equals("Date")) {
+                                    y = month(ds.getValue().toString());
+
+
+                                } else if (ds.getKey().equals("Score")) {
+                                    z = Float.parseFloat(ds.getValue().toString());
+
+                                    switch (y) {
+                                        case "Jan":
+                                            count[0] += 1;
+                                            arr[0] += z;
+                                            break;
+                                        case "Feb":
+                                            count[1] += 1;
+                                            arr[1] += z;
+                                            break;
+                                        case "Mar":
+                                            count[2] += 1;
+                                            arr[2] += z;
+                                            break;
+                                        case "Apr":
+                                            count[3] += 1;
+                                            arr[3] = arr[3] + z;
+                                            break;
+                                        case "May":
+                                            count[4] += 1;
+                                            arr[4] += z;
+                                            break;
+                                        case "Jun":
+                                            count[5] += 1;
+                                            arr[5] += z;
+                                            break;
+                                        case "Jul":
+                                            count[6] += 1;
+                                            arr[6] += z;
+                                            break;
+                                        case "Aug":
+                                            count[7] += 1;
+                                            arr[7] += z;
+                                            break;
+                                        case "Sep":
+                                            count[8] += 1;
+                                            arr[8] += z;
+                                            break;
+                                        case "Oct":
+                                            count[9] += 1;
+                                            arr[9] += z;
+                                            break;
+                                        case "Nov":
+                                            count[10] += 1;
+                                            arr[10] += z;
+                                            break;
+                                        case "Dec":
+                                            count[11] += 1;
+                                            arr[11] += z;
+                                            break;
+                                        default:
+                                            Log.d("fail", "fail");
+                                    }
+
+                                }
+
+                            }
+
+
+                        }
+                        ArrayList<Entry> entries1 = new ArrayList<>();
+                        for (int i = 0; i < 12; i++) {
+                            float e;
+                            if(count[i]==0){
+                                e=0;
+                            }
+                            else{
+                                e=(float) (arr[i] / count[i]);
+                            }
+
+                            entries1.add(new Entry(i + 1,e ));
+                            Log.d("Checking array", entries1.get(i).toString());
+                        }
+                        LineDataSet set1 = new LineDataSet(entries1, ds1.getKey());
+                        set1.setColor(Color.BLUE);
+                        set1.setLineWidth(1f);
+                        dataSets.add(set1);
                     }
-                    LineDataSet set1 = new LineDataSet(entries1, ds1.getKey());
-                    set1.setColor(Color.parseColor(colour));
-                    set1.setLineWidth(1f);
-                    dataSets.add(set1);
-                    }
-                LineData lineData = new LineData(dataSets);
-                lineChart.setData(lineData);
+
+                    LineData lineData = new LineData(dataSets);
+                    lineChart.setData(lineData);
                 }
-
+            }
 
 
             @Override
