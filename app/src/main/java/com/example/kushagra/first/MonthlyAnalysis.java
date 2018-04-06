@@ -160,7 +160,7 @@ public class MonthlyAnalysis extends AppCompatActivity {
                                 e=(float) (arr[i] / count[i]);
                             }
 
-                            entries1.add(new Entry(i + 1,e ));
+                            entries1.add(new Entry(e,i+1 ));
                             Log.d("Checking array", entries1.get(i).toString());
                         }
                         LineDataSet set1 = new LineDataSet(entries1, ds1.getKey());
@@ -252,7 +252,7 @@ public class MonthlyAnalysis extends AppCompatActivity {
                                 e=(float) (arr[i] / count[i]);
                             }
 
-                            entries1.add(new Entry(i + 1,e ));
+                            entries1.add(new Entry(e,i+1));
                             Log.d("Checking array", entries1.get(i).toString());
                         }
                         LineDataSet set1 = new LineDataSet(entries1, ds1.getKey());
@@ -342,7 +342,7 @@ public class MonthlyAnalysis extends AppCompatActivity {
                                 e=(float) (arr[i] / count[i]);
                             }
 
-                            entries1.add(new Entry(i + 1,e ));
+                            entries1.add(new Entry(e,i+1 ));
                             Log.d("Checking array", entries1.get(i).toString());
                         }
                         LineDataSet set1 = new LineDataSet(entries1, ds1.getKey());
@@ -350,8 +350,13 @@ public class MonthlyAnalysis extends AppCompatActivity {
                         set1.setLineWidth(1f);
                         dataSets.add(set1);
                     }
+                    String[] xaxes = new String[] {"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEPT","OCT","NOV","DEC"};
+                    /*for (int i = 0; i < 12; i++) {
+                        xaxes[i] =Integer.toString(i);
+                    }*/
 
-                    LineData lineData = new LineData(dataSets);
+                    LineData lineData = new LineData(xaxes,dataSets);
+                    lineChart.animateXY(3000,3000);
                     lineChart.setData(lineData);
                 }
             }

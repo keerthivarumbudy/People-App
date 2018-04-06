@@ -18,7 +18,11 @@ android {
         }
     }
 }
-
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+}
 dependencies {
     implementation 'com.google.firebase:firebase-database:11.0.4'
     implementation 'com.google.firebase:firebase-auth:11.0.4'
@@ -29,7 +33,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 
 }
 

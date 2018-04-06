@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class Results extends AppCompatActivity {
    Button rank;
    Button comparision;
+    private Button b1;
 
 
     @Override
@@ -22,6 +23,7 @@ public class Results extends AppCompatActivity {
         setContentView(R.layout.activity_results);
         rank=(Button)findViewById(R.id.rank);
         comparision=(Button) findViewById(R.id.auth);
+        b1=(Button) findViewById(R.id.typewise);
         rank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,6 +36,14 @@ public class Results extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(Results.this,MonthlyAnalysis.class);
+                Results.this.startActivity(intent);
+
+            }
+        });
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Results.this,TypeWise.class);
                 Results.this.startActivity(intent);
 
             }

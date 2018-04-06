@@ -11,7 +11,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,11 +26,11 @@ public class Rank extends AppCompatActivity {
     private BarChart barChart;
     private BarData barData;
     ArrayList<BarEntry>  entries;
-   private DatabaseReference db;
+    private DatabaseReference db;
     private DatabaseReference db1;
     private DatabaseReference db2;
-private int  sum;
-private  int j;
+    private int  sum;
+    private  int j;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,36 +45,53 @@ private  int j;
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                int count=0;sum=0;
+                int count=0,sum=0,s=0;
 
                 for(DataSnapshot i : dataSnapshot.getChildren())
                 {
-                    sum=sum+Integer.parseInt(i.child("Keerthi").child("Score").getValue().toString());
-                    count++;
+                    for (DataSnapshot j:  i.getChildren())
+                    {
+
+                        sum=sum+Integer.parseInt(j.child("Score").getValue().toString());
+                        count++;
+
+                    }
+                    Log.d("msm"+s,"sum="+sum+"count"+count);
+                    float s1=(float)((sum/count));
+                    entries.add(new BarEntry(s1,s));
+                    s++;
+                    count=0;
+                    sum=0;
 
                 }
-                float s1=(float)((sum/count)*100.0);
-                entries.add(new BarEntry(1,s1));
 
-                count=0;sum=0;
-                for(DataSnapshot i : dataSnapshot.getChildren())
-                {
-                    sum=sum+Integer.parseInt(i.child("Kush").child("Score").getValue().toString());
-                    count++;
 
-                }
-                float s2=(float)((sum/count)*100.0);
-                entries.add(new BarEntry(1,s2));
 
-                count=0;sum=0;
-                for(DataSnapshot i : dataSnapshot.getChildren())
-                {
-                    sum=sum+Integer.parseInt(i.child("Kush").child("Score").getValue().toString());
-                    count++;
+                barChart.setDrawBarShadow(false);
+                barChart.setDrawValueAboveBar(true);
+                barChart.setMaxVisibleValueCount(100);
+                barChart.setPinchZoom(true);
+                barChart.setDrawGridBackground(true);
+                barChart.setTouchEnabled(true);
+                barChart.setDragEnabled(true);
+                barChart.setSaveEnabled(true);
+                barChart.animateXY(3000,3000);
 
-                }
-                float s3=(float)((sum/count)*100.0);
-                entries.add(new BarEntry(1,s3));
+
+                BarDataSet barDataSet=new BarDataSet(entries,"Scores");
+                barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                ArrayList<String> names=new ArrayList<>();
+                names.add("Keerthi");
+                names.add("Kush");
+                names.add("Sarkar");
+                BarData barData=new BarData(names,barDataSet);
+
+
+                barChart.setData(barData);
+
+
+
+
 
 
 
@@ -85,66 +102,6 @@ private  int j;
 
             }
         });
-
-       /* db1=FirebaseDatabase.getInstance().getReference("Rating").child("kush");
-
-        db1.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                int count=0;sum=0;
-
-                for(DataSnapshot i : dataSnapshot.getChildren())
-                {
-                    sum=sum+Integer.parseInt(i.child("Score").getValue().toString());
-                    count++;
-
-                }
-                float s1=(float)((sum/count)*100.0);
-                entries.add(new BarEntry(2,s1));
-                //print(sum,count,j);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-        db2=FirebaseDatabase.getInstance().getReference("Rating").child("sarkar");
-
-        db2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                int count=0;sum=0;
-
-                for(DataSnapshot i : dataSnapshot.getChildren())
-                {
-                    sum=sum+Integer.parseInt(i.child("Score").getValue().toString());
-                    count++;
-
-                }
-                float s1=(float)((sum/count));
-                Log.d("sff",""+s1);
-                entries.add(new BarEntry(3,s1));
-                //print(sum,count,j);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
-
-
-
-
-       barChart.setDrawBarShadow(false);
-       barChart.setDrawValueAboveBar(true);
-       barChart.setMaxVisibleValueCount(50);
-       barChart.setPinchZoom(true);
-       barChart.canScrollHorizontally(10);
-       barChart.setDrawGridBackground(true);
 
 
 
@@ -152,7 +109,6 @@ private  int j;
 
 
     }
-
 
 
 

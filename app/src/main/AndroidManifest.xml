@@ -31,7 +31,8 @@
         <activity android:name=".Rank" />
         <activity android:name=".MonthlyAnalysis" />
         <activity android:name=".list_click" />
-        <activity android:name=".Complaint_History"></activity>
+        <activity android:name=".Complaint_History" />
+        <activity android:name=".TypeWise"></activity>
     </application>
 
 </manifest>

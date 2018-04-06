@@ -18,7 +18,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="132dp"
-        android:text="X axis= Month Number
+        android:text="X axis= Month
 Yaxis=Score recieved out of 100" />
 
 </RelativeLayout>

@@ -4,34 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.kushagra.first.Rank">
+    tools:context="com.example.kushagra.first.TypeWise">
     <com.github.mikephil.charting.charts.BarChart
         android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:id="@+id/rankbar">
+        android:layout_height="400dp"
+        android:id="@+id/bar">
 
     </com.github.mikephil.charting.charts.BarChart>
 
-    <TextView
-        android:id="@+id/textView7"
+    <EditText
+        android:id="@+id/editText7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rankbar"
+        android:layout_below="@+id/bar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
-        android:text="X-Axis --> Autority"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_marginTop="43dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Authority Name" />
 
-    <TextView
-        android:id="@+id/textView8"
+    <Button
+        android:id="@+id/button9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView7"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
-        android:text="Y-Axis --> Score Percentage"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_marginBottom="12dp"
+        android:text="Enter" />
 
 </RelativeLayout>
