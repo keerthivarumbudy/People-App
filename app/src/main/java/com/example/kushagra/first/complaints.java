@@ -92,8 +92,8 @@ public class complaints extends AppCompatActivity {
         DatabaseComplaints1=FirebaseDatabase.getInstance().getReference("Complaints_keerthi_ward1");
         DatabaseComplaints2=FirebaseDatabase.getInstance().getReference("Complaints_kush_ward2");
         DatabaseComplaints3=FirebaseDatabase.getInstance().getReference("Complaints_sarkar_ward3");
-       /* final Toast*/ toast1=Toast.makeText(this,"Submitted to Keerthi",Toast.LENGTH_LONG);
-         toast2=Toast.makeText(this,"Submitted to Kushagra",Toast.LENGTH_LONG);
+        /* final Toast*/ toast1=Toast.makeText(this,"Submitted to Keerthi",Toast.LENGTH_LONG);
+        toast2=Toast.makeText(this,"Submitted to Kushagra",Toast.LENGTH_LONG);
         /*final Toast*/ toast3=Toast.makeText(this,"Submitted to Saurov",Toast.LENGTH_LONG);
         final Toast toast4=Toast.makeText(this,"Please enter ward 1,2 or 3",Toast.LENGTH_LONG);
         final Toast toast5=Toast.makeText(this,"Please enter ward 1,2 or 3 Correctly!!",Toast.LENGTH_LONG);
@@ -109,18 +109,12 @@ public class complaints extends AppCompatActivity {
 
             public void onClick(View v){
 
-               /* final String */complaintType = ComplaintType.getSelectedItem().toString();
-               /* String */complaint = Complaint.getText().toString();
-               /* String*/ complaintLocation = ComplaintLocation.getText().toString();
-               /* String*/ complaintDetails = ComplaintDetails.getText().toString();
+                /* final String */complaintType = ComplaintType.getSelectedItem().toString();
+                /* String */complaint = Complaint.getText().toString();
+                /* String*/ complaintLocation = ComplaintLocation.getText().toString();
+                /* String*/ complaintDetails = ComplaintDetails.getText().toString();
                 /*String*/ complaintWard= ComplaintWard.getText().toString();
-                boolean isInserted = myDb.insertData(email,complaint);
-                if(isInserted = true){
-                    Toast.makeText(complaints.this,"data inserted",Toast.LENGTH_LONG);
-                }
-                else{
-                    Toast.makeText(complaints.this,"data not inserted",Toast.LENGTH_LONG);
-                }
+
 
 
                 if (complaintWard.isEmpty())
@@ -128,8 +122,8 @@ public class complaints extends AppCompatActivity {
                     toast4.show();
                 }
                 else{
-                   pro.setMessage("Submitting...");
-                   pro.show();
+                    pro.setMessage("Submitting...");
+                    pro.show();
 
                     int foo = Integer.parseInt(complaintWard);
 
@@ -155,12 +149,12 @@ public class complaints extends AppCompatActivity {
                         {
                             if(foo!=1)
                             {toast5.show();
-                            foo=4;
+                                foo=4;
                             }
 
 
-                       }
-                       else if (dis>2000)
+                        }
+                        else if (dis>2000)
                         {
                             Location l3=new Location("");
                             l3.setLatitude(12.33268216);
@@ -176,7 +170,7 @@ public class complaints extends AppCompatActivity {
 
                             }
                             else if(dis1>2000)
-                                {Location l4=new Location("");
+                            {Location l4=new Location("");
                                 l4.setLatitude(12.304202);
                                 l4.setLongitude(76.632607);
                                 float dis2=l1.distanceTo(l4);
@@ -210,42 +204,48 @@ public class complaints extends AppCompatActivity {
                     else {
                         toast7.show();
                         foo=4;
-                        }
+                    }
 
 
-                if(foo==1)
-                {
+                    if(foo==1)
+                    {
 
 
-                    DatabaseComplaints1.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for(DataSnapshot i: dataSnapshot.getChildren())
-                            {
-                                String s=i.child("ComplaintType").getValue().toString();
-
-                                if(s.equals(complaintType))
+                        DatabaseComplaints1.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                int flag =0;
+                                for(DataSnapshot i: dataSnapshot.getChildren())
                                 {
-                                    toast8.show();
-                                    pro.dismiss();
-                                    return;
+                                    final String s=i.child("ComplaintType").getValue().toString();
+
+                                    if(s.equals(complaintType))
+                                    {
+                                        toast8.show();
+                                        pro.dismiss();
+                                        flag=1;
+                                        break;
+
+
+                                    }
+
 
 
                                 }
-                                print1();
+                                if(flag==0)
+                                {
+                                    print1();
+                                }
+
+
 
                             }
 
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-
-
-                        }
-
-                      @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
+                            }
+                        });
 
 
 
@@ -270,40 +270,46 @@ public class complaints extends AppCompatActivity {
 
 
 
-                }
-               else if(foo==2)
-                {
-                    DatabaseComplaints2.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for(DataSnapshot i: dataSnapshot.getChildren())
-                            {
-                                String s=i.child("ComplaintType").getValue().toString();
-                                if(s!=null)
+                    }
+                    else if(foo==2)
+                    {
+                        DatabaseComplaints2.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                int flag=0;
+                                for(DataSnapshot i: dataSnapshot.getChildren())
                                 {
+                                    String s=i.child("ComplaintType").getValue().toString();
+
                                     if(s.equals(complaintType))
                                     {
 
                                         toast8.show();
                                         pro.dismiss();
-                                        return;
+                                        flag=1;
+                                        break;
 
 
 
                                     }
-                                    print2();
+
+
 
                                 }
+                                if(flag==0)
+                                {
+                                    print2();
+                                }
+
+
                             }
 
-                        }
 
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
+                            }
+                        });
 
 
 
@@ -323,40 +329,43 @@ public class complaints extends AppCompatActivity {
                         }
                     });*/
 
-                }
-                else if(foo==3)
-                {
+                    }
+                    else if(foo==3)
+                    {
 
-                    DatabaseComplaints3.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for(DataSnapshot i: dataSnapshot.getChildren())
-                            {
-                                String s=i.child("ComplaintType").getValue().toString();
-                                if(s!=null)
+                        DatabaseComplaints3.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                int flag=0;
+                                for(DataSnapshot i: dataSnapshot.getChildren())
                                 {
+                                    final String s=i.child("ComplaintType").getValue().toString();
+
                                     if(s.equals(complaintType))
                                     {
 
                                         toast8.show();
                                         pro.dismiss();
-
-                                        return;
+                                        flag=1;
+                                        break;
 
 
 
                                     }
+
+
+                                }
+                                if(flag==0) {
                                     print3();
                                 }
+
                             }
 
-                        }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
+                            }
+                        });
 
 
 
@@ -373,33 +382,33 @@ public class complaints extends AppCompatActivity {
                         }
                     });*/
 
-                }
-                else if (foo==4)
-                {
-                    pro.dismiss();
+                    }
+                    else if (foo==4)
+                    {
+                        pro.dismiss();
 
-                }
-                else
-                {
-                    pro.dismiss();
-                    toast4.show();
-                }
+                    }
+                    else
+                    {
+                        pro.dismiss();
+                        toast4.show();
+                    }
 
-            }}
+                }}
 
 
 
-            });
+        });
 
-    latt=0.0;
-    longi=0.0;
+        latt=0.0;
+        longi=0.0;
     }
     public  void print2()
     {
         //Toast.makeText(this,"latt "+Integer.toString(f),Toast.LENGTH_LONG).show();
         String complaintID2 = DatabaseComplaints2.push().getKey();
         String complaintTime=new SimpleDateFormat("HH:mm").format(CurrentTime);
-        ComplaintInformation information= new ComplaintInformation(complaintTime,currentDate,complaintType,complaintDetails,complaintLocation,complaint);
+        ComplaintInformation information= new ComplaintInformation(complaintTime,currentDate,complaintType,complaintDetails,complaintLocation,complaint,"No");
         DatabaseComplaints2.child(complaintID2).setValue(information).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -409,6 +418,17 @@ public class complaints extends AppCompatActivity {
 
             }
         });
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user= mAuth.getCurrentUser();
+        final String email=user.getEmail();
+
+        boolean isInserted = myDb.insertData(email,complaint,complaintID2);
+        if(isInserted = true){
+            Toast.makeText(complaints.this,"data inserted",Toast.LENGTH_LONG);
+        }
+        else{
+            Toast.makeText(complaints.this,"data not inserted",Toast.LENGTH_LONG);
+        }
 
     }
     public void print1()
@@ -416,7 +436,7 @@ public class complaints extends AppCompatActivity {
 
         final String complaintID1 = DatabaseComplaints1.push().getKey();
         String complaintTime = new SimpleDateFormat("HH:mm").format(CurrentTime);
-        ComplaintInformation information = new ComplaintInformation(complaintTime, currentDate, complaintType, complaintDetails, complaintLocation, complaint);
+        ComplaintInformation information = new ComplaintInformation(complaintTime, currentDate, complaintType, complaintDetails, complaintLocation, complaint,"No");
         DatabaseComplaints1.child(complaintID1).setValue(information).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -432,12 +452,24 @@ public class complaints extends AppCompatActivity {
             }
         });
 
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user= mAuth.getCurrentUser();
+        final String email=user.getEmail();
+
+        boolean isInserted = myDb.insertData(email,complaint,complaintID1);
+        if(isInserted = true){
+            Toast.makeText(complaints.this,"data inserted",Toast.LENGTH_LONG);
+        }
+        else{
+            Toast.makeText(complaints.this,"data not inserted",Toast.LENGTH_LONG);
+        }
+
     }
     public void print3()
     {
         String complaintID3 = DatabaseComplaints3.push().getKey();
         String complaintTime=new SimpleDateFormat("HH:mm").format(CurrentTime);
-        ComplaintInformation information= new ComplaintInformation(complaintTime,currentDate,complaintType,complaintDetails,complaintLocation,complaint);
+        ComplaintInformation information= new ComplaintInformation(complaintTime,currentDate,complaintType,complaintDetails,complaintLocation,complaint,"No");
         DatabaseComplaints3.child(complaintID3).setValue(information).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -447,9 +479,20 @@ public class complaints extends AppCompatActivity {
 
             }
         });
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user= mAuth.getCurrentUser();
+        final String email=user.getEmail();
+
+        boolean isInserted = myDb.insertData(email,complaint,complaintID3);
+        if(isInserted = true){
+            Toast.makeText(complaints.this,"data inserted",Toast.LENGTH_LONG);
+        }
+        else{
+            Toast.makeText(complaints.this,"data not inserted",Toast.LENGTH_LONG);
+        }
     }
 
 
 
 }
-

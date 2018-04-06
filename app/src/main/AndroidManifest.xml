@@ -30,6 +30,8 @@
         <activity android:name=".Results" />
         <activity android:name=".Rank" />
         <activity android:name=".MonthlyAnalysis" />
+        <activity android:name=".list_click" />
+        <activity android:name=".Complaint_History"></activity>
     </application>
 
 </manifest>

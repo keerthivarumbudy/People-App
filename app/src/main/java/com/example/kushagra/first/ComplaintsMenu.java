@@ -72,13 +72,13 @@ public class ComplaintsMenu extends AppCompatActivity{
                 startActivity(intent);
             }
         });
-       /* button4.setOnClickListener(new View.OnClickListener() {
+        button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent k =new Intent(ComplaintsMenu.this,Complaint_History.class);
                 startActivity(k);
             }
-        });*/
+        });
         button6.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent intent2 = new Intent(ComplaintsMenu.this,Results.class);

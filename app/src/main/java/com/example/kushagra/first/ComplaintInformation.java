@@ -11,18 +11,20 @@ public class ComplaintInformation {
     public  String Complaint;
     public String ComplaintDate;
     public String ComplaintTime;
+    public String Accepted;
 
 
 
 
 
-    public ComplaintInformation(String currentTime,String complaintDate,String complaintType, String complaintDetails, String complaintLocation, String complaint) {
+    public ComplaintInformation(String currentTime,String complaintDate,String complaintType, String complaintDetails, String complaintLocation, String complaint,String no) {
         ComplaintTime=currentTime;
         ComplaintDate=complaintDate;
         ComplaintType = complaintType;
         ComplaintDetails = complaintDetails;
         ComplaintLocation = complaintLocation;
         Complaint = complaint ;
+        Accepted=no;
 
     }
 
