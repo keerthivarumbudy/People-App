@@ -5,4 +5,4 @@ People can give feedback to whoever solves/ doesnt solve the complaint given by 
 People can also have the list of all the complaints made by them that are yet to be solved.
 Graphs are provided to view the relative performance of the authorities, based on ratings provided by the citizens, thereby 
 allowing them to choose better during elections.
-
+The Authorities app can be found here- https://github.com/keerthivarumbudy/Authorities
